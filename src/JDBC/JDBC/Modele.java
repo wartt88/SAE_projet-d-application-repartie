@@ -1,9 +1,9 @@
-package JDBC.Modele;
+package JDBC.JDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class Modele {
+public class Modele implements InterfaceModele {
 
     // Information de connexion à la base de données
     private String userName;
@@ -48,6 +48,32 @@ public class Modele {
     public Connection getConnection() {
         return connection;
     }
+
+
+    /**
+     * méthode reservation permet d'enregistrer une reservation dans la base de données
+     * @param date String
+     * @param nbPersonnes int
+     * @param numTable int
+     * @param nom String
+     * @param prenom String
+     * @param idReservation int
+     * @param idRestaurant int
+     */
+    public void reservation(String date, int nbPersonnes, int numTable, String nom, String prenom, int idReservation, int idRestaurant) {
+        try {
+            // On crée la requete
+            String requete = "INSERT INTO Reservation VALUES (" + idReservation + ", '" + date + "', " + nbPersonnes + ", " + numTable + ", '" + nom + "', '" + prenom + "', " + idRestaurant + ")";
+            // On execute la requete
+            this.connection.createStatement().executeUpdate(requete);
+            // On commit
+            this.connection.commit();
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la reservation");
+            e.printStackTrace();
+        }
+    }
+
 
 
 
