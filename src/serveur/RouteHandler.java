@@ -19,26 +19,32 @@ public class RouteHandler implements HttpHandler {
         String requestMethod = httpExchange.getRequestMethod();
         OutputStream outputStream = httpExchange.getResponseBody();
 
-        if (requestedURL.equals("/")) {
-            System.out.println("/ root");
-        }
-        if (requestedURL.startsWith("/addresto")) {
-            if (!requestMethod.equals("GET")) {
-                httpExchange.sendResponseHeaders(405, 0);
-                outputStream.close();
-                return;
+        try {
+            if (requestedURL.startsWith("/restaurant/getTables")) {
+                if (!requestMethod.equals("GET")) {
+                    httpExchange.sendResponseHeaders(405, 0);
+                    outputStream.close();
+                    return;
+                }
+                String response = serveur.getRestaurant();
+                outputStream.write(response.getBytes());
             }
-            String response = serveur.getRestaurant();
-            outputStream.write(response.getBytes());
-        }
-        if (requestedURL.startsWith("/addresto")) {
-            if (!requestMethod.equals("POST")) {
-                httpExchange.sendResponseHeaders(405, 0);
-                outputStream.close();
-                return;
+            if (requestedURL.startsWith("/restaurant/reserverTable")) {
+                if (!requestMethod.equals("POST")) {
+                    httpExchange.sendResponseHeaders(405, 0);
+                    outputStream.close();
+                    return;
+                }
+                String response = serveur.reserverRestaurant();
+                outputStream.write(response.getBytes());
             }
-            String response = serveur.reserverRestaurant();
-            outputStream.write(response.getBytes());
+        } catch (ServiceNotBindException e) {
+            // Si le service ne s'est pas déclaré sur le serveur
+            httpExchange.sendResponseHeaders(503, 0);
+            String error = e.getMessage();
+            outputStream.write(error.getBytes());
+            outputStream.close();
+            return;
         }
         httpExchange.sendResponseHeaders(200, 0);
         outputStream.close();
