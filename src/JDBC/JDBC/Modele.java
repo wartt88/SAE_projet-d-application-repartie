@@ -50,6 +50,7 @@ public class Modele implements InterfaceModele {
      * @param idReservation int
      * @param idRestaurant int
      */
+    @Override
     public void reservation(int idRestaurant, int numTable, String date,String nom, String prenom, int nbPersonnes,String numeroTel) {
         try {
             // On crée la requete
