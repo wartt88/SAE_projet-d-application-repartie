@@ -8,10 +8,6 @@ public class LanceServiceJDBC {
         Modele modele = new Modele(args[0], args[1]);
 
 
-
-
         // TODO
-
-
     }
 }

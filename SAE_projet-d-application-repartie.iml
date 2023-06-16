@@ -8,7 +8,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="eurodyn.qlack2.util.drivers.ojdbc8" level="project" />
     <orderEntry type="library" name="json" level="project" />
+    <orderEntry type="library" name="oracle.database.jdbc.ojdbc5" level="project" />
   </component>
 </module>

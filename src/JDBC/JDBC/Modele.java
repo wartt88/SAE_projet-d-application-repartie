@@ -1,7 +1,9 @@
 package JDBC.JDBC;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Modele implements InterfaceModele {
@@ -32,24 +34,12 @@ public class Modele implements InterfaceModele {
         try {
             this.connection = DriverManager.getConnection(this.url, userName, password);
             this.connection.setAutoCommit(false);
+            System.out.println("Connection avec succes !");
         } catch (Exception e) {
             System.out.println("Connection failed");
             e.printStackTrace();
         }
     }
-
-    //
-    // GETTER
-    //
-
-    /**
-     * getter de la Connection
-     * @return la connection à la base de données
-     */
-    public Connection getConnection() {
-        return connection;
-    }
-
 
     /**
      * méthode reservation permet d'enregistrer une reservation dans la base de données
@@ -78,25 +68,42 @@ public class Modele implements InterfaceModele {
 
     /**
      * méthode getListeRestaurant permet de récupérer la liste des restaurants
+     *
      * @return liste des restaurants
      */
-    public ArrayList<Restaurant> getListeRestaurant() {
-        try {
-            // On crée la requete
-            String requete = "SELECT * FROM Restaurant";
-            // On execute la requete
-            // TODO : !!!!!!!!
-            // TODO : !!!!!!!!
-        } catch (Exception e) {
-            System.out.println("Erreur lors de la récupération de la liste des restaurants");
-            e.printStackTrace();
-            return null;
+    public String getListeRestaurant() throws SQLException {
+        // On crée la requete
+        String requete = "SELECT * FROM elbouro11u.restaurant";
+        // On execute la requete
+        Statement stmt = this.connection.createStatement();
+        ResultSet res = stmt.executeQuery(requete);
+        JSONArray json = new JSONArray();
+        while (res.next())
+        {
+            JSONObject objetJson  = new JSONObject();
+            objetJson.put("latitude", res.getString("latitude"));
+            objetJson.put("longitude", res.getString("longitude"));
+            objetJson.put("nom", res.getString("nom"));
+            json.put(objetJson);
         }
-        return null;
+        return json.toString();
     }
 
+    //
+    // GETTER
+    //
 
+    /**
+     * getter de la Connection
+     * @return la connection à la base de données
+     */
+    public Connection getConnection() {
+        return connection;
+    }
 
-
+    public static void main(String[] args) throws SQLException {
+        Modele modele = new Modele(args[0],args[1]);
+        System.out.println(modele.getListeRestaurant());
+    }
 }
 
