@@ -1,0 +1,9 @@
+#map {
+    height: 50em;
+    width: 50em;
+}
+
+.map_content {
+    background-color: red;
+    padding: 1em;
+}
