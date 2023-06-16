@@ -7,7 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Modele implements InterfaceModele {
-
     // Information de connexion à la base de données
     private String userName;
     private String password;
@@ -54,7 +53,7 @@ public class Modele implements InterfaceModele {
     public void reservation(int idRestaurant, int numTable, String date,String nom, String prenom, int nbPersonnes,String numeroTel) {
         try {
             // On crée la requete
-            String requete = "INSERT INTO reservation(idrestaurant, numtab, datres, nom, prenom, nbpers, numeroTel) VALUES(?,?,?,?,?,?,?)";
+            String requete = "INSERT INTO elbouro11u.reservation(idrestaurant, numtab, datres, nom, prenom, nbpers, numeroTel) VALUES(?,?,?,?,?,?,?)";
 
             PreparedStatement prepare = this.connection.prepareStatement(requete);
             prepare.setInt(1,idRestaurant);
@@ -100,17 +99,12 @@ public class Modele implements InterfaceModele {
     //
     // GETTER
     //
-
     /**
      * getter de la Connection
      * @return la connection à la base de données
      */
     public Connection getConnection() {
         return connection;
-    }
-
-    public static void main(String[] args) throws SQLException {
-        Modele modele = new Modele(args[0],args[1]);
     }
 }
 
