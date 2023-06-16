@@ -19,7 +19,7 @@ public class LanceServiceEtablissementSuperieur {
         Registry registry = null;
         try {
             registry = LocateRegistry.getRegistry(args[0], Integer.parseInt(args[1]));
-            InterfaceServeur serveur = (InterfaceServeur) registry.lookup("serveur");
+            InterfaceServeur serveur = (InterfaceServeur) registry.lookup("ServeurCentrale");
             //Creation de l'objet EtablissementSup pour l'enregistrer sur le serveur
             EtablissementSup etablissementSup = new EtablissementSup();
             //Enregistrement du service

@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -44,16 +45,11 @@ public class Serveur implements InterfaceServeur {
         if (this.restaurant == null)
             throw new ServiceNotBindException("Le service Restorant n'est pas enregistré actuellement sur le serveur");
         System.out.println("Récupération du service Restaurant");
-        List<Restaurant> listRestaurant = restaurant.getListeRestaurant();
-        JSONArray json = new JSONArray();
-        for (Restaurant r : listRestaurant) {
-            JSONObject jsonRestaurant = new JSONObject();
-            jsonRestaurant.put("longitude", r.getLongitude());
-            jsonRestaurant.put("latitude", r.getLatitude());
-            jsonRestaurant.put("nom", r.getNom());
-            json.put(jsonRestaurant);
+        try {
+            return restaurant.getListeRestaurant();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return json.toString();
     }
 
     /**
