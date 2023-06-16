@@ -2,6 +2,7 @@ package JDBC.JDBC;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 
 public class Modele implements InterfaceModele {
 
@@ -72,6 +73,26 @@ public class Modele implements InterfaceModele {
             System.out.println("Erreur lors de la reservation");
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * méthode getListeRestaurant permet de récupérer la liste des restaurants
+     * @return liste des restaurants
+     */
+    public ArrayList<Restaurant> getListeRestaurant() {
+        try {
+            // On crée la requete
+            String requete = "SELECT * FROM Restaurant";
+            // On execute la requete
+            // TODO : !!!!!!!!
+            // TODO : !!!!!!!!
+        } catch (Exception e) {
+            System.out.println("Erreur lors de la récupération de la liste des restaurants");
+            e.printStackTrace();
+            return null;
+        }
+        return null;
     }
 
 
