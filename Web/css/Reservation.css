@@ -1,0 +1,78 @@
+header {}
+
+main {}
+
+.form * {}
+
+.form {
+    margin: 10em;
+    padding: 1em;
+    min-height: 2em;
+    min-width: 5em;
+    width: 30em;
+    border-radius: 50px;
+    background: #f3f3f3;
+    box-shadow: 20px 20px 60px #cfcfcf,
+        -20px -20px 60px #ffffff;
+}
+
+.cred input {
+    border-radius: 35px;
+    background: #f3f3f3;
+    box-shadow: inset 20px 20px 60px #cfcfcf,
+        inset -20px -20px 60px #ffffff;
+    height: 2em;
+    border: none;
+    padding: 0.2em 1em;
+}
+
+.cred {
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#datePicker {
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(145deg, #FFFFFF, #D1D1D1);
+    box-shadow: 9.91px 9.91px 15px #DDDDDD, -9.91px -9.91px 15px #FFFFFF;
+    padding: 1em;
+}
+
+.date {
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.num_tab {
+    font-family: sans-serif;
+    border-radius: 15px;
+    padding: 1em;
+    box-shadow: 28.53px 28.53px 15px #DDDDDD, -28.53px -28.53px 15px #FFFFFF;
+    background: linear-gradient(145deg, #FFFFFF, #D1D1D1);
+}
+
+#entier {
+    border: none;
+    height: 100%;
+    background-color: transparent;
+}
+
+.info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#nbpersonne {
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(145deg, #FFFFFF, #D1D1D1);
+    box-shadow: 15.32px 15.32px 18px #7A7A7A, -15.32px -15.32px 18px #FFFFFF;
+    padding: 1em;
+}
