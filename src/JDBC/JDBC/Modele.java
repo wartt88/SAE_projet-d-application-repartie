@@ -51,13 +51,21 @@ public class Modele implements InterfaceModele {
      * @param idReservation int
      * @param idRestaurant int
      */
-    public void reservation(String date, int nbPersonnes, int numTable, String nom, String prenom, int idReservation, int idRestaurant) {
+    public void reservation(int idRestaurant, int numTable, String date,String nom, String prenom, int nbPersonnes,String numeroTel) {
         try {
             // On crée la requete
-            String requete = "INSERT INTO Reservation VALUES (" + idReservation + ", '" + date + "', " + nbPersonnes + ", " + numTable + ", '" + nom + "', '" + prenom + "', " + idRestaurant + ")";
-            // On execute la requete
-            this.connection.createStatement().executeUpdate(requete);
-            // On commit
+            String requete = "INSERT INTO reservation(idrestaurant, numtab, datres, nom, prenom, nbpers, numeroTel) VALUES(?,?,?,?,?,?,?)";
+
+            PreparedStatement prepare = this.connection.prepareStatement(requete);
+            prepare.setInt(1,idRestaurant);
+            prepare.setInt(2,numTable);
+            prepare.setString(3,date);
+            prepare.setString(4,nom);
+            prepare.setString(5,prenom);
+            prepare.setInt(6,nbPersonnes);
+            prepare.setString(7,numeroTel);
+
+            prepare.executeUpdate();
             this.connection.commit();
         } catch (Exception e) {
             System.out.println("Erreur lors de la reservation");
@@ -65,12 +73,12 @@ public class Modele implements InterfaceModele {
         }
     }
 
-
     /**
      * méthode getListeRestaurant permet de récupérer la liste des restaurants
      *
      * @return liste des restaurants
      */
+    @Override
     public String getListeRestaurant() throws SQLException {
         // On crée la requete
         String requete = "SELECT * FROM elbouro11u.restaurant";
@@ -103,7 +111,6 @@ public class Modele implements InterfaceModele {
 
     public static void main(String[] args) throws SQLException {
         Modele modele = new Modele(args[0],args[1]);
-        System.out.println(modele.getListeRestaurant());
     }
 }
 
