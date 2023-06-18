@@ -9,10 +9,21 @@ import java.io.OutputStream;
 public class RouteHandler implements HttpHandler {
     Serveur serveur;
 
+    /**
+     * Constructeur de la classe RouteHandler
+     *
+     * @param s
+     */
     public RouteHandler(Serveur s) {
         serveur = s;
     }
 
+    /**
+     * Méthode principale pour gérer les requêtes HTTP reçues par le serveur.
+     *
+     * @param httpExchange L'échange HTTP contenant la requête et la réponse.
+     * @throws IOException En cas d'erreur lors de la manipulation des flux de données.
+     */
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         // on récupère l'url et la méthode de la requête
@@ -21,7 +32,6 @@ public class RouteHandler implements HttpHandler {
         String requestMethod = httpExchange.getRequestMethod();
         // on récupère le flux de sortie
         OutputStream outputStream = httpExchange.getResponseBody();
-
 
         System.out.println("URL : " + requestedURL);
         System.out.println("Method : " + requestMethod);
@@ -61,7 +71,6 @@ public class RouteHandler implements HttpHandler {
                     // on écrit la réponse
                     outputStream.write(response.getBytes());
                 }
-
             }
         } catch (ServiceNotBindException e) { // on catch l'exception si le service n'est pas bind
             // Si le service ne s'est pas déclaré sur le serveur
@@ -71,6 +80,7 @@ public class RouteHandler implements HttpHandler {
             outputStream.close();
             return;
         }
+
         // on envoie une réponse 200
         httpExchange.sendResponseHeaders(200, 0);
         // on ferme le flux de sortie
