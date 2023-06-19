@@ -1,11 +1,10 @@
-package JDBC.JDBC;
+package serveur;
 
+import java.io.Serializable;
 import java.rmi.Remote;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
-public interface InterfaceModele extends Remote {
+public interface InterfaceModele extends Remote, Serializable {
 
     /**
      * méthode getListeRestaurant permet de récupérer la liste des restaurants

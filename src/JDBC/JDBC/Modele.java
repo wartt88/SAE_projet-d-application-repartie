@@ -2,18 +2,13 @@ package JDBC.JDBC;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.sql.*;
-import java.util.ArrayList;
 
-public class Modele implements InterfaceModele {
+
+public class Modele{
     // Information de connexion à la base de données
     private String userName;
     private String password;
-
-    // URL de connexion à la base de données
-    private String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
-
     // Objet de connexion à la base de données
     private Connection connection = null;
 
@@ -31,11 +26,13 @@ public class Modele implements InterfaceModele {
 
         // try catch pour se connecter à la base de données
         try {
-            this.connection = DriverManager.getConnection(this.url, userName, password);
+            // URL de connexion à la base de données
+            String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
+            this.connection = DriverManager.getConnection(url, userName, password);
             this.connection.setAutoCommit(false);
-            System.out.println("Connection avec succes !");
+            System.out.println("connection successful !");
         } catch (Exception e) {
-            System.out.println("Connection failed");
+            System.out.println("connection failed");
             e.printStackTrace();
         }
     }
@@ -47,10 +44,8 @@ public class Modele implements InterfaceModele {
      * @param numTable int
      * @param nom String
      * @param prenom String
-     * @param idReservation int
      * @param idRestaurant int
      */
-    @Override
     public void reservation(int idRestaurant, int numTable, String date,String nom, String prenom, int nbPersonnes,String numeroTel) {
         try {
             // On crée la requete
@@ -67,7 +62,7 @@ public class Modele implements InterfaceModele {
 
             prepare.executeUpdate();
             this.connection.commit();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Erreur lors de la reservation");
             e.printStackTrace();
         }
@@ -78,7 +73,6 @@ public class Modele implements InterfaceModele {
      *
      * @return liste des restaurants
      */
-    @Override
     public String getListeRestaurant() throws SQLException {
         // On crée la requete
         String requete = "SELECT * FROM elbouro11u.restaurant";
@@ -95,17 +89,6 @@ public class Modele implements InterfaceModele {
             json.put(objetJson);
         }
         return json.toString();
-    }
-
-    //
-    // GETTER
-    //
-    /**
-     * getter de la Connection
-     * @return la connection à la base de données
-     */
-    public Connection getConnection() {
-        return connection;
     }
 }
 

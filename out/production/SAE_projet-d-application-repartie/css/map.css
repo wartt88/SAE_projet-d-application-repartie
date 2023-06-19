@@ -1,6 +1,7 @@
 #map {
     height: 50em;
     width: 50em;
+    z-index: 1;
 }
 
 .map_content {
