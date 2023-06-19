@@ -1,12 +1,8 @@
 package serveur;
 
 import JDBC.JDBC.InterfaceModeleData;
-import JDBC.JDBC.Modele;
-import JDBC.JDBC.ModeleData;
 import donnees_bloquees.EtablissementSup;
 import java.rmi.RemoteException;
-import java.sql.SQLException;
-
 
 /**
  * Classe représentant le serveur qui offre des services de restaurant.
