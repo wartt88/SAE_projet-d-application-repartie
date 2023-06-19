@@ -13,7 +13,7 @@ public class RouteHandler implements HttpHandler {
     /**
      * Constructeur de la classe RouteHandler
      *
-     * @param s
+     * @param s Le serveur
      */
     public RouteHandler(Serveur s) {
         serveur = s;
@@ -118,9 +118,7 @@ public class RouteHandler implements HttpHandler {
             outputStream.write(error.getBytes());
             outputStream.close();
             return;
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+        } catch (URISyntaxException | InterruptedException e) {
             throw new RuntimeException(e);
         }
 

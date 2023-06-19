@@ -69,15 +69,44 @@ let resTest = [
 addRestaurantMarkers(resTest);
 
 // URL de l'API pour récupérer les restaurants
-let URL_API = "http://10.11.17.202:9000/restaurant/getTables";
+let URL_API = "http://10.11.58.65:9000/restaurant/getTables";
 
 // Effectuer une requête vers l'API pour récupérer les restaurants
-fetch(URL_API, { method: "GET" })
-  .then((response) => response.json())
-  .then((data) => {
-    console.log("Résultat de la requête :");
-    console.log(data);
-    // Ajouter les marqueurs des restaurants récupérés à la carte
-    addRestaurantMarkers(data);
-  })
-  .catch((error) => console.log(error));
+fetch(URL_API, {method: "GET"})
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("Résultat de la requête :");
+        console.log(data);
+        // Ajouter les marqueurs des restaurants récupérés à la carte
+        addRestaurantMarkers(data);
+    })
+    .catch((error) => console.log(error));
+
+fetch("http://10.11.58.65:9000/recupererListEtablissement", {method: "GET"})
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("Résultat de la requête etablissemtns :");
+        console.log(data[0]);
+        console.log(data[0].fields.coordonnees);
+        addEtablissementMarker(data);
+    });
+
+export function addEtablissementMarker(etablissement) {
+    etablissement.forEach(function (etablissement) {
+        console.log("coordonne", etablissement.fields.coordonnees);
+        // Créer un marqueur pour chaque restaurant et l'ajouter à la carte
+        if (!etablissement.fields.coordonnees) return;
+        var marker = L.marker([
+            etablissement.fields.coordonnees[0],
+            etablissement.fields.coordonnees[1],
+        ]).addTo(map);
+
+        // Associer une info-bulle au marqueur contenant le nom du restaurant
+        marker.bindPopup(etablissement.fields.url);
+
+        // Ajouter un événement de clic pour chaque marqueur
+        marker.on("click", function () {
+            // Afficher le formulaire d'inscription
+        });
+    });
+}

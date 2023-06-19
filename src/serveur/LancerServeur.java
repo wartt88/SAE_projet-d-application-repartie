@@ -1,9 +1,6 @@
 package serveur;
 
 import com.sun.net.httpserver.HttpServer;
-import serveur.InterfaceServeur;
-import serveur.RouteHandler;
-import serveur.Serveur;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -22,6 +19,7 @@ public class LancerServeur {
 
     /**
      * Méthode main du serveur
+     *
      * @param args
      * @throws IOException
      */
