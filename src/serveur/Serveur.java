@@ -23,9 +23,10 @@ public class Serveur implements InterfaceServeur {
      * @throws RemoteException si une erreur liée à la communication RMI se produit.
      */
     @Override
-    public void enregistrerServiceRestaurant(Modele restaurant) throws RemoteException {
+    public void enregistrerServiceRestaurant(Modele restaurant) throws RemoteException, SQLException {
         System.out.println("Enregistrement du service Restaurant");
         this.restaurant = restaurant;
+        System.out.println(restaurant.getListeRestaurant());
     }
 
     @Override

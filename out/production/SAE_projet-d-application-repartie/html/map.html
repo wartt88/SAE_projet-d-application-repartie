@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="../css/map.css" />
     <link rel="stylesheet" href="../css/Style.css" />
+    <link rel="stylesheet" href="../css/Reservation.css" />
 
     <link
       rel="stylesheet"
@@ -22,9 +23,13 @@
       crossorigin=""
     ></script>
 
-    <script src="../js/index.js">
-        
-    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <header></header>
@@ -37,13 +42,27 @@
         <div id="map"></div>
       </div>
     </main>
+
+    <div class="reservation">
+      <div class="form_reservation">
+        <button id="close"><i class="fa-solid fa-xmark"></i></button>
+        <div class="title">
+          <h1>Réservation</h1>
+        </div>
+        <div class="name_form">
+          <input type="text" placeholder="Prénom">
+          <input type="text" placeholder="Nom">
+        </div>
+        <div class="info_reservation">
+          <input type="date">
+          <input type="time">
+          <input type="number" name="" id="numtab" placeholder="numéro table">
+        </div>
+        <div class="send">
+          <button id="send">Envoyer</button>
+        </div>
+      </div>
+    </div>
   </body>
-  <script>
-    var map = L.map("map").setView([48.6921, 6.1844], 13);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution:
-        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
-  </script>
+  <script src="../js/index.js" type="module"></script>
 </html>

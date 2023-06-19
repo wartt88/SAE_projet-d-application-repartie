@@ -3,10 +3,11 @@ package JDBC.JDBC;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Modele implements InterfaceModele {
+public class Modele implements InterfaceModele, Serializable {
     // Information de connexion à la base de données
     private String userName;
     private String password;
@@ -15,7 +16,7 @@ public class Modele implements InterfaceModele {
     private String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
 
     // Objet de connexion à la base de données
-    private Connection connection = null;
+    private transient Connection connection = null;
 
     /**
      * Constructeur de la classe Modele
@@ -28,16 +29,6 @@ public class Modele implements InterfaceModele {
         // On initialise les attributs
         this.userName = userName;
         this.password = password;
-
-        // try catch pour se connecter à la base de données
-        try {
-            this.connection = DriverManager.getConnection(this.url, userName, password);
-            this.connection.setAutoCommit(false);
-            System.out.println("Connection avec succes !");
-        } catch (Exception e) {
-            System.out.println("Connection failed");
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -56,7 +47,7 @@ public class Modele implements InterfaceModele {
             // On crée la requete
             String requete = "INSERT INTO elbouro11u.reservation(idrestaurant, numtab, datres, nom, prenom, nbpers, numeroTel) VALUES(?,?,?,?,?,?,?)";
 
-            PreparedStatement prepare = this.connection.prepareStatement(requete);
+            PreparedStatement prepare = this.getConnection().prepareStatement(requete);
             prepare.setInt(1,idRestaurant);
             prepare.setInt(2,numTable);
             prepare.setString(3,date);
@@ -83,7 +74,7 @@ public class Modele implements InterfaceModele {
         // On crée la requete
         String requete = "SELECT * FROM elbouro11u.restaurant";
         // On execute la requete
-        Statement stmt = this.connection.createStatement();
+        Statement stmt = this.getConnection().createStatement();
         ResultSet res = stmt.executeQuery(requete);
         JSONArray json = new JSONArray();
         while (res.next())
@@ -105,7 +96,20 @@ public class Modele implements InterfaceModele {
      * @return la connection à la base de données
      */
     public Connection getConnection() {
+        if (connection == null) {
+            try {
+                this.connection = DriverManager.getConnection(this.url, userName, password);
+                this.connection.setAutoCommit(false);
+                System.out.println("Connection avec succes !");
+            } catch (Exception e) {
+                System.out.println("Connection failed");
+                e.printStackTrace();
+                System.exit(1);
+            }
+        }
         return connection;
     }
+
+
 }
 
