@@ -69,12 +69,13 @@ let resTest = [
 addRestaurantMarkers(resTest);
 
 // URL de l'API pour récupérer les restaurants
-let URL_API = "http://localhost:3000/api/v1/restaurants";
+let URL_API = "http://10.11.17.202:9000/restaurant/getTables";
 
 // Effectuer une requête vers l'API pour récupérer les restaurants
-fetch(URL_API)
+fetch(URL_API, { method: "GET" })
   .then((response) => response.json())
   .then((data) => {
+    console.log("Résultat de la requête :");
     console.log(data);
     // Ajouter les marqueurs des restaurants récupérés à la carte
     addRestaurantMarkers(data);
