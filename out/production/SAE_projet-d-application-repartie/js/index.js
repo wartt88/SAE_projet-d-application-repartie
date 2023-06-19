@@ -1,10 +1,52 @@
+// Créer une carte avec Leaflet et la centrer sur les coordonnées spécifiées
 var map = L.map("map").setView([48.6921, 6.1844], 13);
+
+// Ajouter une couche de tuiles OpenStreetMap à la carte
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
   attribution:
     '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
+/**
+ * Ajoute des marqueurs de restaurant à la carte.
+ * @param {Array} restaurants - Un tableau d'objets représentant les restaurants.
+ */
+export function addRestaurantMarkers(restaurants) {
+  restaurants.forEach(function (restaurant) {
+    // Créer un marqueur pour chaque restaurant et l'ajouter à la carte
+    var marker = L.marker([restaurant.latitude, restaurant.longitude]).addTo(
+      map
+    );
+
+    // Associer une info-bulle au marqueur contenant le nom du restaurant
+    marker.bindPopup(restaurant.nom);
+
+    // Ajouter un événement de clic pour chaque marqueur
+    marker.on("click", function () {
+      // Afficher le formulaire d'inscription
+      showInscriptionForm(restaurant);
+    });
+  });
+}
+
+/**
+ * Affiche le formulaire d'inscription pour un restaurant spécifique.
+ * @param {Object} restaurant - L'objet représentant le restaurant.
+ */
+function showInscriptionForm(restaurant) {
+  let formElement = document.querySelector(".reservation");
+  formElement.style.display = "flex";
+}
+
+// Ajouter un gestionnaire d'événement au bouton de fermeture du formulaire
+let closebtn = document.querySelector("#close");
+closebtn.addEventListener("click", function (event) {
+  let formElement = document.querySelector(".reservation");
+  formElement.style.display = "none";
+});
+
+// Données de test pour les restaurants
 let resTest = [
   {
     nom: "Restaurant A",
@@ -23,47 +65,19 @@ let resTest = [
   },
 ];
 
-function addRestaurantMarkers(restaurants) {
-  restaurants.forEach(function (restaurant) {
-    var marker = L.marker([restaurant.latitude, restaurant.longitude]).addTo(
-      map
-    );
-    marker.bindPopup(restaurant.nom);
-
-    // Ajouter un événement de clic pour chaque marqueur
-    marker.on("click", function () {
-        // Afficher le formulaire d'inscription
-        showInscriptionForm(restaurant);
-      });
-  });
-}
-
-
-function showInscriptionForm(restaurant) {
-    // Récupérer le formulaire d'inscription ou créer un nouvel élément
-    var formElement = document.getElementById("inscription-form");
-    if (!formElement) {
-      formElement = document.createElement("form");
-      formElement.id = "inscription-form";
-      // Ajouter les champs du formulaire, par exemple :
-      formElement.innerHTML = `
-        <label for="name">Nom :</label>
-        <input type="text" id="name" name="name" required>
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required>
-        <button type="submit">Inscrire</button>
-      `;
-      // Ajouter le formulaire à la page
-      document.body.appendChild(formElement);
-    }
-
-    // Pré-remplir les champs du formulaire avec les informations du restaurant
-  document.getElementById("name").value = restaurant.nom;
-  // Autres champs du formulaire...
-
-  // Afficher le formulaire d'inscription
-  formElement.style.display = "block";
-}
-
-
+// Ajouter les marqueurs des restaurants de test à la carte
 addRestaurantMarkers(resTest);
+
+// URL de l'API pour récupérer les restaurants
+let URL_API = "http://10.11.17.202:9000/restaurants/getTables";
+
+// Effectuer une requête vers l'API pour récupérer les restaurants
+fetch(URL_API, { method: "GET" })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("Résultat de la requête :");
+    console.log(data);
+    // Ajouter les marqueurs des restaurants récupérés à la carte
+    addRestaurantMarkers(data);
+  })
+  .catch((error) => console.log(error));

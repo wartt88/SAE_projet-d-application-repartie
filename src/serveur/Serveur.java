@@ -39,6 +39,7 @@ public class Serveur implements InterfaceServeur {
         if (this.restaurant == null)
             throw new ServiceNotBindException("Le service Restorant n'est pas enregistré actuellement sur le serveur");
         System.out.println("Récupération du service Restaurant");
+        System.out.println(this.restaurant.getRestaurants());
         return restaurant.getRestaurants();
     }
 

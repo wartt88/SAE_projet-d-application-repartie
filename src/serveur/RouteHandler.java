@@ -92,6 +92,7 @@ public class RouteHandler implements HttpHandler {
             }
         } catch (ServiceNotBindException e) { // on catch l'exception si le service n'est pas bind
             // Si le service ne s'est pas déclaré sur le serveur
+            e.printStackTrace();
             httpExchange.sendResponseHeaders(503, 0);
             String error = e.getMessage();
             outputStream.write(error.getBytes());
