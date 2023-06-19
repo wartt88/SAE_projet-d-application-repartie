@@ -3,7 +3,6 @@ package JDBC.JDBC;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 
