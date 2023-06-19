@@ -31,7 +31,6 @@ public class LanceServiceJDBC {
             // On crée un service Modele Data qui permet d'accéder au donnée de la BD
             InterfaceModeleData serviceModeleDate =(InterfaceModeleData) UnicastRemoteObject.exportObject(modeleData,0);
 
-            // L'erreur est ici !!!!
             serveur.enregistrerServiceRestaurant(serviceModeleDate);
         } catch (RemoteException | NotBoundException e)
         {
