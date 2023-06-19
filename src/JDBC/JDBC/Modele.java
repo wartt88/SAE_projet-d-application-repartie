@@ -3,10 +3,11 @@ package JDBC.JDBC;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class Modele implements InterfaceModele {
+public class Modele{
     // Information de connexion à la base de données
     private String userName;
     private String password;
@@ -47,10 +48,8 @@ public class Modele implements InterfaceModele {
      * @param numTable int
      * @param nom String
      * @param prenom String
-     * @param idReservation int
      * @param idRestaurant int
      */
-    @Override
     public void reservation(int idRestaurant, int numTable, String date,String nom, String prenom, int nbPersonnes,String numeroTel) {
         try {
             // On crée la requete
@@ -78,7 +77,6 @@ public class Modele implements InterfaceModele {
      *
      * @return liste des restaurants
      */
-    @Override
     public String getListeRestaurant() throws SQLException {
         // On crée la requete
         String requete = "SELECT * FROM elbouro11u.restaurant";

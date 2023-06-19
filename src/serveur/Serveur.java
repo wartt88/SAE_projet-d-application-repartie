@@ -1,20 +1,18 @@
 package serveur;
 
+import JDBC.JDBC.InterfaceModeleData;
 import JDBC.JDBC.Modele;
-import JDBC.JDBC.Restaurant;
+import JDBC.JDBC.ModeleData;
 import donnees_bloquees.EtablissementSup;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.List;
+
 
 /**
  * Classe représentant le serveur qui offre des services de restaurant.
  */
 public class Serveur implements InterfaceServeur {
-    Modele restaurant;
+    InterfaceModeleData restaurant;
     EtablissementSup etablissementSup;
 
     /**
@@ -23,9 +21,10 @@ public class Serveur implements InterfaceServeur {
      * @throws RemoteException si une erreur liée à la communication RMI se produit.
      */
     @Override
-    public void enregistrerServiceRestaurant(Modele restaurant) throws RemoteException {
+    public void enregistrerServiceRestaurant(InterfaceModeleData restaurant) throws RemoteException {
         System.out.println("Enregistrement du service Restaurant");
         this.restaurant = restaurant;
+        System.out.println(this.restaurant.getRestaurants());
     }
 
     @Override
@@ -45,11 +44,7 @@ public class Serveur implements InterfaceServeur {
         if (this.restaurant == null)
             throw new ServiceNotBindException("Le service Restorant n'est pas enregistré actuellement sur le serveur");
         System.out.println("Récupération du service Restaurant");
-        try {
-            return restaurant.getListeRestaurant();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return restaurant.getRestaurants();
     }
 
     /**

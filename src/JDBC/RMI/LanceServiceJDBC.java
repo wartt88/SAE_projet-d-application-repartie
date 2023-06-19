@@ -1,12 +1,13 @@
 package JDBC.RMI;
 
-import JDBC.JDBC.Modele;
+import JDBC.JDBC.InterfaceModeleData;
+import JDBC.JDBC.ModeleData;
 import serveur.InterfaceServeur;
-
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class LanceServiceJDBC {
     public static void main(String[] args) {
@@ -18,15 +19,22 @@ public class LanceServiceJDBC {
         // Recuperation du registre du serveur
         Registry registry = null;
         try {
+            // on récupère l'annuaire
             registry = LocateRegistry.getRegistry(args[0], Integer.parseInt(args[1]));
+
+            //on récupere le serveur centrale, pour pouvoir enregistrer le modele Data
             InterfaceServeur serveur = (InterfaceServeur) registry.lookup("ServeurCentrale");
-            //Creation de l'objet EtablissementSup pour l'enregistrer sur le serveur
-            Modele modele = new Modele(args[2], args[3]);
-            //Enregistrement du service
-            serveur.enregistrerServiceRestaurant(modele);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        } catch (NotBoundException e) {
+
+            // on crée un objet Modele Data avec les login , username et password
+            ModeleData modeleData = new ModeleData(args[2],args[3]);
+
+            // On crée un service Modele Data qui permet d'accéder au donnée de la BD
+            InterfaceModeleData serviceModeleDate =(InterfaceModeleData) UnicastRemoteObject.exportObject(modeleData,0);
+
+            // L'erreur est ici !!!!
+            serveur.enregistrerServiceRestaurant(serviceModeleDate);
+        } catch (RemoteException | NotBoundException e)
+        {
             throw new RuntimeException(e);
         }
 
