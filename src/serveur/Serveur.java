@@ -1,14 +1,10 @@
 package serveur;
 
 import JDBC.JDBC.Modele;
-import JDBC.JDBC.Restaurant;
 import donnees_bloquees.EtablissementSup;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.rmi.RemoteException;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Classe représentant le serveur qui offre des services de restaurant.
@@ -26,7 +22,6 @@ public class Serveur implements InterfaceServeur {
     public void enregistrerServiceRestaurant(Modele restaurant) throws RemoteException, SQLException {
         System.out.println("Enregistrement du service Restaurant");
         this.restaurant = restaurant;
-        System.out.println(restaurant.getListeRestaurant());
     }
 
     @Override
@@ -39,7 +34,7 @@ public class Serveur implements InterfaceServeur {
      * Récupère le service de restaurant enregistré sur le serveur.
      *
      * @return une chaîne de caractères représentant le service de restaurant.
-     * @throws RemoteException       si une erreur liée à la communication RMI se produit.
+     * @throws RemoteException         si une erreur liée à la communication RMI se produit.
      * @throws ServiceNotBindException si le service de restaurant n'est pas enregistré actuellement sur le serveur.
      */
     public String getRestaurant() throws RemoteException, ServiceNotBindException {
@@ -62,5 +57,9 @@ public class Serveur implements InterfaceServeur {
     public String reserverRestaurant() throws RemoteException {
         System.out.println("Réservation du service Restaurant");
         return "Reservation OK";
+    }
+
+    public EtablissementSup getEtablissementSup() {
+        return this.etablissementSup;
     }
 }

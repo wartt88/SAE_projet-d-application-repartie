@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 
 public class RouteHandler implements HttpHandler {
     Serveur serveur;
@@ -48,10 +49,12 @@ public class RouteHandler implements HttpHandler {
                     return;
                 } else {
                     // si la méthode est GET
-                    System.out.println("GET");
+                    System.out.println("GET RESTAURANTS");
                     // on récupère le service
                     String response = serveur.getRestaurant();
+                    System.out.println(response);
                     // on écrit la réponse
+                    httpExchange.sendResponseHeaders(200, response.getBytes().length);
                     outputStream.write(response.getBytes());
                 }
             }
@@ -72,6 +75,21 @@ public class RouteHandler implements HttpHandler {
                     outputStream.write(response.getBytes());
                 }
             }
+            if (requestedURL.startsWith("/recupererListEtablissement")) {
+                if (!requestMethod.equals("GET")) {
+                    // on envoie une erreur 405
+                    httpExchange.sendResponseHeaders(405, 0);
+                    // on ferme le flux de sortie
+                    outputStream.close();
+                    return;
+                } else {
+                    // si la méthode est POST
+                    String response = serveur.getEtablissementSup().recupererListeDetablissementsSuperieurs();
+                    // on écrit la réponse
+                    httpExchange.sendResponseHeaders(200, response.getBytes().length);
+                    outputStream.write(response.getBytes());
+                }
+            }
         } catch (ServiceNotBindException e) { // on catch l'exception si le service n'est pas bind
             // Si le service ne s'est pas déclaré sur le serveur
             httpExchange.sendResponseHeaders(503, 0);
@@ -79,10 +97,13 @@ public class RouteHandler implements HttpHandler {
             outputStream.write(error.getBytes());
             outputStream.close();
             return;
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
         // on envoie une réponse 200
-        httpExchange.sendResponseHeaders(200, 0);
         // on ferme le flux de sortie
         outputStream.close();
     }
