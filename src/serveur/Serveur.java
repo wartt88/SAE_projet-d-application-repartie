@@ -2,7 +2,9 @@ package serveur;
 
 import JDBC.JDBC.InterfaceModeleData;
 import donnees_bloquees.EtablissementSup;
+
 import java.rmi.RemoteException;
+
 
 /**
  * Classe représentant le serveur qui offre des services de restaurant.
@@ -17,9 +19,9 @@ public class Serveur implements InterfaceServeur {
      * @throws RemoteException si une erreur liée à la communication RMI se produit.
      */
     @Override
-    public void enregistrerServiceRestaurant(Modele restaurant) throws RemoteException, SQLException {
+    public void enregistrerServiceRestaurant(InterfaceModeleData modeleData) throws RemoteException {
         System.out.println("Enregistrement du service Restaurant");
-        this.restaurant = restaurant;
+        this.restaurant = modeleData;
     }
 
     @Override

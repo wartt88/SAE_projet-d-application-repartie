@@ -33,6 +33,11 @@ public class RouteHandler implements HttpHandler {
         String requestMethod = httpExchange.getRequestMethod();
         // on récupère le flux de sortie
         OutputStream outputStream = httpExchange.getResponseBody();
+        // Récupérez la valeur de l'en-tête 'Origin' de la requête
+
+        httpExchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+        httpExchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
+        httpExchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
         System.out.println("URL : " + requestedURL);
         System.out.println("Method : " + requestMethod);
@@ -55,6 +60,7 @@ public class RouteHandler implements HttpHandler {
                     System.out.println(response);
                     // on écrit la réponse
                     httpExchange.sendResponseHeaders(200, response.getBytes().length);
+
                     outputStream.write(response.getBytes());
                 }
             }
