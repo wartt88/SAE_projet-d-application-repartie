@@ -56,7 +56,9 @@ public class Serveur implements InterfaceServeur {
         return "Reservation OK";
     }
 
-    public EtablissementSup getEtablissementSup() {
+    public EtablissementSup getEtablissementSup() throws ServiceNotBindException {
+        if (this.etablissementSup == null)
+            throw new ServiceNotBindException("Le service Restorant n'est pas enregistré actuellement sur le serveur");
         return this.etablissementSup;
     }
 }

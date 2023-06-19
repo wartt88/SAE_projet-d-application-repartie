@@ -14,23 +14,17 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class EtablissementSup implements Serializable {
+    private final boolean IUT;
+
+    public EtablissementSup(boolean isIut) {
+        IUT = isIut;
+    }
 
     public String recupererListeDetablissementsSuperieurs() throws URISyntaxException, IOException, InterruptedException {
 
         HttpClient client;
-        boolean IUT = false;
-
-        Scanner sc = new Scanner(System.in);
-        ArrayList<String> res = new ArrayList<String>(List.of(new String[]{"Oui", "OUI", "O", "o", "oui"}));
-        // on pose la question
-        System.out.println("Est-ce une utilisation sur un poste de l'IUT ? (oui/NON)");
-        String retour = sc.nextLine();
-        IUT = res.contains(retour);
 
         // si machine IUT
         /////////////////////////////////////////////////////////////////////////////////////////////////////////

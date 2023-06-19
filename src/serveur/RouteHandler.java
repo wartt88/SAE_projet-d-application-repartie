@@ -45,7 +45,9 @@ public class RouteHandler implements HttpHandler {
         // on try catch pour gérer les exceptions
         try {
             // on vérifie si l'url est /restaurant/getTables
+
             if (requestedURL.startsWith("/restaurant/getTables")) {
+                System.out.println("GET TABLES");
                 // si la méthode n'est pas GET
                 if (!requestMethod.equals("GET")) {
                     System.out.println("pas GET");
@@ -82,6 +84,7 @@ public class RouteHandler implements HttpHandler {
                 }
             }
             if (requestedURL.startsWith("/recupererListEtablissement")) {
+                System.out.println("GET LISTE ETABLISSEMENT");
                 if (!requestMethod.equals("GET")) {
                     // on envoie une erreur 405
                     httpExchange.sendResponseHeaders(405, 0);
@@ -90,10 +93,21 @@ public class RouteHandler implements HttpHandler {
                     return;
                 } else {
                     // si la méthode est POST
-                    String response = serveur.getEtablissementSup().recupererListeDetablissementsSuperieurs();
-                    // on écrit la réponse
-                    httpExchange.sendResponseHeaders(200, response.getBytes().length);
-                    outputStream.write(response.getBytes());
+                    try {
+                        String response = serveur.getEtablissementSup().recupererListeDetablissementsSuperieurs();
+                        // on écrit la réponse
+                        System.out.println("Reponse");
+                        httpExchange.sendResponseHeaders(200, response.getBytes().length);
+                        outputStream.write(response.getBytes());
+                    } catch (ServiceNotBindException e) {
+                        e.printStackTrace();
+                        httpExchange.sendResponseHeaders(503, 0);
+                        String error = "Service non bind";
+                        outputStream.write(error.getBytes());
+                        outputStream.close();
+                        return;
+                    }
+
                 }
             }
         } catch (ServiceNotBindException e) { // on catch l'exception si le service n'est pas bind

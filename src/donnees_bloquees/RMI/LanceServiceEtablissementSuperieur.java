@@ -7,6 +7,9 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class LanceServiceEtablissementSuperieur {
     public static void main(String[] args) {
@@ -21,7 +24,15 @@ public class LanceServiceEtablissementSuperieur {
             registry = LocateRegistry.getRegistry(args[0], Integer.parseInt(args[1]));
             InterfaceServeur serveur = (InterfaceServeur) registry.lookup("ServeurCentrale");
             //Creation de l'objet EtablissementSup pour l'enregistrer sur le serveur
-            EtablissementSup etablissementSup = new EtablissementSup();
+
+            Scanner sc = new Scanner(System.in);
+            ArrayList<String> res = new ArrayList<String>(List.of(new String[]{"Oui", "OUI", "O", "o", "oui"}));
+            // on pose la question
+            System.out.println("Est-ce une utilisation sur un poste de l'IUT ? (oui/NON)");
+            String retour = sc.nextLine();
+            boolean iut = res.contains(retour);
+
+            EtablissementSup etablissementSup = new EtablissementSup(iut);
             //Enregistrement du service
             serveur.enregistrerServiceEtablissementSup(etablissementSup);
         } catch (RemoteException e) {
