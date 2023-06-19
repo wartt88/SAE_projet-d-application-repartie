@@ -1,16 +1,18 @@
 package serveur;
 
+import JDBC.JDBC.InterfaceModeleData;
 import JDBC.JDBC.Modele;
+import JDBC.JDBC.ModeleData;
 import donnees_bloquees.EtablissementSup;
-
 import java.rmi.RemoteException;
 import java.sql.SQLException;
+
 
 /**
  * Classe représentant le serveur qui offre des services de restaurant.
  */
 public class Serveur implements InterfaceServeur {
-    Modele restaurant;
+    InterfaceModeleData restaurant;
     EtablissementSup etablissementSup;
 
     /**
@@ -41,11 +43,7 @@ public class Serveur implements InterfaceServeur {
         if (this.restaurant == null)
             throw new ServiceNotBindException("Le service Restorant n'est pas enregistré actuellement sur le serveur");
         System.out.println("Récupération du service Restaurant");
-        try {
-            return restaurant.getListeRestaurant();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        return restaurant.getRestaurants();
     }
 
     /**
