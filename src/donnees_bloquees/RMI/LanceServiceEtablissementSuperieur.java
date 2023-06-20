@@ -18,6 +18,7 @@ public class LanceServiceEtablissementSuperieur {
             System.out.println("Usage: java LanceServiceEtablissementSuperieur <ip> <port>");
             System.exit(1);
         }
+
         // Recuperation du registre du serveur
         Registry registry = null;
         try {
@@ -31,6 +32,8 @@ public class LanceServiceEtablissementSuperieur {
             System.out.println("Est-ce une utilisation sur un poste de l'IUT ? (oui/NON)");
             String retour = sc.nextLine();
             boolean iut = res.contains(retour);
+
+            sc.close();
 
             EtablissementSup etablissementSup = new EtablissementSup(iut);
             //Enregistrement du service
