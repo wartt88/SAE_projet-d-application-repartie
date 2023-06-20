@@ -7,19 +7,16 @@
 
 .left_map {
     background-color: red;
-    width: 50%;
+    width: 70%;
     height: 90%;
 }
 
 .map_content {
-    background-color: #d38d8d;
     padding: 1em;
     height: 100vh;
     display: flex;
 }
 
 .righ_map {
-    width: 50%;
-    height: 90%;
-    background-color: blue;
+    padding: 2em;
 }

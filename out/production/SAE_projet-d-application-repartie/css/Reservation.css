@@ -1,5 +1,5 @@
 .reservation {
-    display: none;
+    display: flex;
     z-index: 200;
     top: 0;
     left: 0;
@@ -111,6 +111,23 @@
 
 .send button:focus {
     outline: none;
+}
+
+.phone
+{
+    display: flex;
+    justify-content: space-around;   
+}
+
+.phone input {
+    border: none;
+    background-color: transparent;
+    font-size: 1.3em;
+    padding: 0.5em;
+    margin: 1em;
+    background: linear-gradient(145deg, #D2D2D2, #FFFFFF);
+    border-radius: 15px;
+    box-shadow: inset 9.91px 9.91px 15px #DDDDDD, inset -9.91px -9.91px 15px #FFFFFF;
 }
 
 .send button:hover {

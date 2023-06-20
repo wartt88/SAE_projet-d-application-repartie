@@ -1,5 +1,7 @@
 import { fetchIncidents } from "./Incidents.js";
 
+let ip = "172.19.173.243";
+
 // Créer une carte avec Leaflet et la centrer sur les coordonnées spécifiées
 var map = L.map("map").setView([48.6921, 6.1844], 13);
 
@@ -54,6 +56,12 @@ export function addRestaurantMarkers(restaurants) {
 function showInscriptionForm(restaurant) {
   let formElement = document.querySelector(".reservation");
   formElement.style.display = "flex";
+  // on met sur le bouton d'id send l'envent click la fonction envoyerReservation
+  let sendbtn = document.querySelector("#send");
+  sendbtn.addEventListener("click", function (event) {
+    envoyerReservation(restaurant.id);
+  });
+
 }
 
 // Ajouter un gestionnaire d'événement au bouton de fermeture du formulaire
@@ -67,7 +75,7 @@ closebtn.addEventListener("click", function (event) {
 // addRestaurantMarkers(resTest);
 
 // URL de l'API pour récupérer les restaurants
-let URL_API = "http://192.168.1.25:9000/restaurant/getTables";
+let URL_API = ip + ":9000/restaurant/getTables";
 
 // Effectuer une requête vers l'API pour récupérer les restaurants
 fetch(URL_API, { method: "GET" })
@@ -80,7 +88,7 @@ fetch(URL_API, { method: "GET" })
 
 // Effectuer une requête vers l'API pour récupérer les etablissements
 
-fetch("http://192.168.1.25:9000/recupererListEtablissement", { method: "GET" })
+fetch("http://" + ip + ":9000/recupererListEtablissement", { method: "GET" })
   .then((response) => response.json())
   .then((data) => {
     addEtablissementMarker(data);
@@ -115,11 +123,11 @@ function addStationMarker(station) {
   // Associer une info-bulle au marqueur contenant le nom du restaurant
   marker.bindPopup(
     "Adresse de la station: " +
-      station.address +
-      " nombre de vélos disponible sur la station: " +
-      station.veloDispo +
-      " nombre de place de parkings libre sur la station: " +
-      station.placesDispo
+    station.address +
+    " nombre de vélos disponible sur la station: " +
+    station.veloDispo +
+    " nombre de place de parkings libre sur la station: " +
+    station.placesDispo
   );
 
   // Ajouter un événement de clic pour chaque marqueur
@@ -173,26 +181,35 @@ export const addMarker = (nord, est, icon, descr) => {
 
 fetchIncidents();
 
-function envoyerReservation() {
+function envoyerReservation(idRestaurant) {
   let prenom = document.getElementById("name").value;
   let nom = document.getElementById("surname").value;
   let nombrePersonnes = document.getElementById("nbper").value;
   let idTable = document.getElementById("numtable").value;
   let date = document.getElementById("date").value;
   let heure = document.getElementById("time").value;
+  let phone = document.getElementById("phone").value;
+
+  // si phone est vide ou ne contient pas 10 chiffres
+  if (phone == "" || phone.length != 10) {
+    alert("Veuillez entrer un numéro de téléphone valide");
+    return;
+  }
 
   // Créer un objet contenant les données de réservation
   const reservationData = {
+    id: idRestaurant,
     nom: nom,
     prenom: prenom,
     nbPersonnes: nombrePersonnes,
     numTable: idTable,
     date: date,
-    date: date+"/"+heure+":00",
+    date: date + "/" + heure + ":00",
+    telephone: phone,
   };
 
   // Envoyer les données de réservation à l'API
-  fetch("http://192.168.1.25:9000/restaurant/reserverTable", {
+  fetch("http://" + ip + ":9000/restaurant/reserverTable", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -211,4 +228,37 @@ function envoyerReservation() {
       console.log("Erreur lors de la réservation : " + error.message);
       // Gérer les erreurs de réservation
     });
+}
+
+let check = document.querySelectorAll(".check");
+
+check.forEach((element) => {
+    element.addEventListener("click", displayItemsMap);
+});
+
+
+function displayItemsMap() {
+
+    console.log("displayItemsMap");
+
+    // on remove to les markers
+    map.eachLayer(function (layer) {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+
+    let check_rest = document.getElementById("check_rest");
+    let check_vel = document.getElementById("check_vel");
+    let check_inc = document.getElementById("check_inc");
+
+    if (check_rest.checked) {
+        fetchRestaurants();
+    }
+    if (check_vel.checked) {
+        bike();
+    }
+    if (check_inc.checked) {
+        fetchIncidents();
+    }
 }

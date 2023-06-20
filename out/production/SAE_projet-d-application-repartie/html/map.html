@@ -39,7 +39,12 @@
 
     <main>
       <div class="map_content">
-        <div id="map"></div>
+        <div class="left_map">
+          <div id="map"></div>
+        </div>
+        <div class="righ_map">
+
+        </div>
       </div>
     </main>
 
@@ -50,14 +55,17 @@
           <h1>Réservation</h1>
         </div>
         <div class="name_form">
-          <input type="text" placeholder="Prénom">
-          <input type="text" placeholder="Nom">
+          <input type="text" placeholder="Prénom" id="name"/>
+          <input type="text" placeholder="Nom" id="surname" />
         </div>
         <div class="info_reservation">
-          <input type="date">
-          <input type="time">
-          <input type="number" id="nbper" placeholder="nombre personnes">
-          <input type="number" name="" id="numtab" placeholder="numéro table">
+          <input type="date" id="date" />
+          <input type="time" id="time" />
+          <input type="number" id="nbper" placeholder="nombre personnes" />
+          <input type="number" name="" id="numtab" placeholder="numéro table" />
+        </div>
+        <div class="phone">
+          <input placeholder="numéro de téléphone" type="text" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" title="Veuillez entrer un numéro de téléphone valide au format XXX-XXX-XXXX" required>
         </div>
         <div class="send">
           <button id="send">Envoyer</button>

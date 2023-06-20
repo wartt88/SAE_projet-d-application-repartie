@@ -113,6 +113,23 @@
     outline: none;
 }
 
+.phone
+{
+    display: flex;
+    justify-content: space-around;   
+}
+
+.phone input {
+    border: none;
+    background-color: transparent;
+    font-size: 1.3em;
+    padding: 0.5em;
+    margin: 1em;
+    background: linear-gradient(145deg, #D2D2D2, #FFFFFF);
+    border-radius: 15px;
+    box-shadow: inset 9.91px 9.91px 15px #DDDDDD, inset -9.91px -9.91px 15px #FFFFFF;
+}
+
 .send button:hover {
     cursor: pointer;
     background: linear-gradient(145deg, #FFFFFF, #D2D2D2);
