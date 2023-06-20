@@ -2,10 +2,14 @@ package serveur;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 
 public class RouteHandler implements HttpHandler {
     Serveur serveur;
@@ -68,6 +72,7 @@ public class RouteHandler implements HttpHandler {
 
             // on vérifie si l'url est /restaurant/reserverTable
             if (requestedURL.startsWith("/restaurant/reserverTable")) {
+                System.out.println("POST RESERVER TABLE");
                 // si la méthode n'est pas POST
                 if (!requestMethod.equals("POST")) {
                     // on envoie une erreur 405
@@ -76,10 +81,40 @@ public class RouteHandler implements HttpHandler {
                     outputStream.close();
                     return;
                 } else {
+                    System.out.println("On cherche le body");
                     // si la méthode est POST
-                    String response = serveur.reserverRestaurant();
-                    // on écrit la réponse
-                    outputStream.write(response.getBytes());
+                    // Recuperation des données
+                    //JSONObject data = new JSONObject(httpExchange.getRequestBody().toString());
+                    System.out.println("Data reserver table");
+                    //System.out.println(data);
+                    System.out.println(httpExchange.getRequestBody().toString());
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpExchange.getRequestBody(), StandardCharsets.UTF_8));
+                    StringBuilder requestBody = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        requestBody.append(line);
+                    }
+                    bufferedReader.close();
+                    String requestBodyString = requestBody.toString();
+                    System.out.println(requestBodyString);
+                    // Conversion de la chaîne en objet JSONObject
+                    JSONObject jsonObject = new JSONObject(requestBodyString);
+                    try {
+                        int id = jsonObject.getInt("id");
+                        int numTable = jsonObject.getInt("numTable");
+                        String date = jsonObject.getString("date");
+                        String nom = jsonObject.getString("nom");
+                        String prenom = jsonObject.getString("prenom");
+                        int nbPersonnes = jsonObject.getInt("nbPersonnes");
+                        String telephone = jsonObject.getString("telephone");
+                        serveur.getRestaurant().reserver(id, numTable, date, nom, prenom, nbPersonnes, telephone);
+                        httpExchange.sendResponseHeaders(200, 0);
+                    } catch (Exception e) {
+                        httpExchange.sendResponseHeaders(400, e.getMessage().getBytes().length);
+                        outputStream.write(e.getMessage().getBytes());
+                        e.printStackTrace();
+                    }
+
                 }
             }
             if (requestedURL.startsWith("/recupererListEtablissement")) {
