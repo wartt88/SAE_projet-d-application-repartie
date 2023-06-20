@@ -1,5 +1,5 @@
 .reservation {
-    display: flex;
+    display: none;
     z-index: 200;
     top: 0;
     left: 0;

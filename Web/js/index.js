@@ -233,32 +233,45 @@ function envoyerReservation(idRestaurant) {
 let check = document.querySelectorAll(".check");
 
 check.forEach((element) => {
-    element.addEventListener("click", displayItemsMap);
+  element.addEventListener("click", displayItemsMap);
 });
 
 
 function displayItemsMap() {
 
-    console.log("displayItemsMap");
+  console.log("displayItemsMap");
 
-    // on remove to les markers
-    map.eachLayer(function (layer) {
-        if (layer instanceof L.Marker) {
-            map.removeLayer(layer);
-        }
-    });
+  // on remove to les markers
+  map.eachLayer(function (layer) {
+    if (layer instanceof L.Marker) {
+      map.removeLayer(layer);
+    }
+  });
 
-    let check_rest = document.getElementById("check_rest");
-    let check_vel = document.getElementById("check_vel");
-    let check_inc = document.getElementById("check_inc");
-
+  let check_rest = document.getElementById("check_rest");
+  let check_vel = document.getElementById("check_vel");
+  let check_inc = document.getElementById("check_inc");
+  try {
     if (check_rest.checked) {
-        fetchRestaurants();
+      fetchRestaurants();
     }
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
     if (check_vel.checked) {
-        bike();
+      bike();
     }
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
     if (check_inc.checked) {
-        fetchIncidents();
+      fetchIncidents();
     }
+  } catch (error) {
+    console.log(error);
+  }
 }
