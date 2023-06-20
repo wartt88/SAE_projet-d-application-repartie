@@ -11,12 +11,13 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 const Icon = L.Icon.extend({
     options: {
         iconSize: [40, 40],
-        iconAnchor: [22, 94],
+        //iconAnchor: [22, 94],
         //popupAnchor: [-3, -76], Déplace les logos quand on unzoom ?
     },
 });
 const etablissementIcon = new Icon({iconUrl: "../logo/EtablissementSup.png"});
 const restaurantIcon = new Icon({iconUrl: "../logo/Restaurant.png"});
+export const stationIcon = new Icon({iconUrl: "../logo/StationVelo.png"});
 
 /**
  * Ajoute des marqueurs de restaurant à la carte.
@@ -56,25 +57,6 @@ closebtn.addEventListener("click", function (event) {
   formElement.style.display = "none";
 });
 
-// Données de test pour les restaurants
-/* let resTest = [
-  {
-    nom: "Restaurant A",
-    longitude: 6.1784,
-    latitude: 48.6921,
-  },
-  {
-    nom: "Restaurant B",
-    longitude: 6.183,
-    latitude: 48.6929,
-  },
-  {
-    nom: "Restaurant C",
-    longitude: 6.1694,
-    latitude: 48.6866,
-  },
-];
- */
 // Ajouter les marqueurs des restaurants de test à la carte
 // addRestaurantMarkers(resTest);
 
@@ -85,25 +67,21 @@ let URL_API = "http://10.11.58.65:9000/restaurant/getTables";
 fetch(URL_API, {method: "GET"})
     .then((response) => response.json())
     .then((data) => {
-        console.log("Résultat de la requête :");
-        console.log(data);
         // Ajouter les marqueurs des restaurants récupérés à la carte
         addRestaurantMarkers(data);
     })
     .catch((error) => console.log(error));
 
+// Effectuer une requête vers l'API pour récupérer les etablissements
+
 fetch("http://10.11.58.65:9000/recupererListEtablissement", {method: "GET"})
     .then((response) => response.json())
     .then((data) => {
-        console.log("Résultat de la requête etablissemtns :");
-        console.log(data[0]);
-        console.log(data[0].fields.coordonnees);
         addEtablissementMarker(data);
     });
 
 export function addEtablissementMarker(etablissement) {
     etablissement.forEach(function (etablissement) {
-        console.log("coordonne", etablissement.fields.coordonnees);
         // Créer un marqueur pour chaque restaurant et l'ajouter à la carte
         if (!etablissement.fields.coordonnees) return;
         var marker = L.marker(
@@ -123,3 +101,58 @@ export function addEtablissementMarker(etablissement) {
         });
     });
 }
+
+function addStationMarker(station) {
+    var marker = L.marker([station.lat, station.lon], {
+        icon: stationIcon,
+    }).addTo(map);
+    // Associer une info-bulle au marqueur contenant le nom du restaurant
+    marker.bindPopup(
+        "Adresse de la station: " +
+        station.address +
+        " nombre de vélos disponible sur la station: " +
+        station.veloDispo +
+        " nombre de place de parkings libre sur la station: " +
+        station.placesDispo
+    );
+
+    // Ajouter un événement de clic pour chaque marqueur
+    marker.on("click", function () {
+        // Afficher le formulaire d'inscription
+    });
+}
+
+// Partie pour les stations de vélo
+const bike = async () => {
+    // Effectuer une requête vers l'API ouverte transport pour récupérer les stations de vélo
+    const [infoStations, statusStations] = await Promise.all([
+        // Information sur les stations
+        fetch(
+            "https://transport.data.gouv.fr/gbfs/nancy/station_information.json",
+            {method: "GET"}
+        ),
+        // Status en temps réel des stations
+        fetch("https://transport.data.gouv.fr/gbfs/nancy/station_status.json", {
+            method: "GET",
+        }),
+    ]);
+    // Extraire les données JSON des réponses
+    const infoStationJson = await infoStations.json();
+    const statusStationsJson = await statusStations.json();
+
+    // Ajouter les marqueurs des stations récupérées à la carte
+    console.log(infoStationJson);
+    console.log(statusStationsJson);
+    infoStationJson.data.stations.forEach((station) => {
+        const status = statusStationsJson.data.stations.find(
+            (s) => s.station_id === station.station_id
+        );
+        if (status) {
+            station.veloDispo = status.num_bikes_available;
+            station.placesDispo = status.num_docks_available;
+            addStationMarker(station);
+        }
+    });
+};
+
+bike();
