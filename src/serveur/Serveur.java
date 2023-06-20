@@ -1,8 +1,7 @@
 package serveur;
 
-import JDBC.JDBC.InterfaceModeleData;
-import donnees_bloquees.EtablissementSup;
-
+import JDBC.JDBC.InterfaceRestaurant;
+import donnees_bloquees.InterfaceEtablissementSup;
 import java.rmi.RemoteException;
 
 
@@ -10,8 +9,9 @@ import java.rmi.RemoteException;
  * Classe représentant le serveur qui offre des services de restaurant.
  */
 public class Serveur implements InterfaceServeur {
-    InterfaceModeleData restaurant;
-    EtablissementSup etablissementSup;
+    InterfaceRestaurant restaurant;
+    InterfaceEtablissementSup etablissementSup;
+
 
     /**
      * Enregistre le service de restaurant sur le serveur.
@@ -19,13 +19,17 @@ public class Serveur implements InterfaceServeur {
      * @throws RemoteException si une erreur liée à la communication RMI se produit.
      */
     @Override
-    public void enregistrerServiceRestaurant(InterfaceModeleData modeleData) throws RemoteException {
+    public void enregistrerServiceRestaurant(InterfaceRestaurant modeleData) throws RemoteException {
         System.out.println("Enregistrement du service Restaurant");
         this.restaurant = modeleData;
     }
 
+    /**
+     * Enregistre le service d'établissement sur le serveur
+     * @throws RemoteException, si une erreur RMI
+     */
     @Override
-    public void enregistrerServiceEtablissementSup(EtablissementSup etablissementSup) throws RemoteException {
+    public void enregistrerServiceEtablissementSup(InterfaceEtablissementSup etablissementSup) throws RemoteException {
         System.out.println("Enregistrement du service EtablissementSup");
         this.etablissementSup = etablissementSup;
     }
@@ -37,28 +41,30 @@ public class Serveur implements InterfaceServeur {
      * @throws RemoteException         si une erreur liée à la communication RMI se produit.
      * @throws ServiceNotBindException si le service de restaurant n'est pas enregistré actuellement sur le serveur.
      */
-    public String getRestaurant() throws RemoteException, ServiceNotBindException {
+    public InterfaceRestaurant getRestaurant() throws RemoteException, ServiceNotBindException {
         if (this.restaurant == null)
-            throw new ServiceNotBindException("Le service Restorant n'est pas enregistré actuellement sur le serveur");
-        System.out.println("Récupération du service Restaurant");
-        System.out.println(this.restaurant.getRestaurants());
-        return restaurant.getRestaurants();
+            throw new ServiceNotBindException("Le service restaurant n'est pas enregistré actuellement sur le serveur");
+        System.out.println("Récupération du service restaurant");
+        return this.restaurant;
     }
 
     /**
-     * Réserve le service de restaurant.
-     *
-     * @return une chaîne de caractères indiquant que la réservation a été effectuée avec succès.
-     * @throws RemoteException si une erreur liée à la communication RMI se produit.
+     * Récupère le service d'établissement
+     * @return retourne le service
+     * @throws ServiceNotBindException, si le service de restaurant n'est pas enregistré actuellement sur le serveur.
      */
-    public String reserverRestaurant() throws RemoteException {
-        System.out.println("Réservation du service Restaurant");
-        return "Reservation OK";
+    public InterfaceEtablissementSup getEtablissementSup() throws ServiceNotBindException {
+        if (this.etablissementSup == null)
+            throw new ServiceNotBindException("Le service restaurant n'est pas enregistre actuellement sur le serveur");
+        System.out.println("Récupération du service Etablissement superieur");
+        return this.etablissementSup;
     }
 
-    public EtablissementSup getEtablissementSup() throws ServiceNotBindException {
-        if (this.etablissementSup == null)
-            throw new ServiceNotBindException("Le service Restorant n'est pas enregistré actuellement sur le serveur");
-        return this.etablissementSup;
+    /**
+     * Méthode que nous n'allons pas utiliser
+     */
+    public String reserverRestaurant() {
+        //TODO
+        return null;
     }
 }

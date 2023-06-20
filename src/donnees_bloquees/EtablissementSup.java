@@ -15,7 +15,7 @@ import java.net.http.HttpResponse;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 
-public class EtablissementSup implements Serializable {
+public class EtablissementSup implements Serializable, InterfaceEtablissementSup {
     private final boolean IUT;
 
     public EtablissementSup(boolean isIut) {

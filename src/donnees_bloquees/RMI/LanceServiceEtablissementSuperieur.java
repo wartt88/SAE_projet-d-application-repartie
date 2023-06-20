@@ -18,6 +18,7 @@ public class LanceServiceEtablissementSuperieur {
             System.out.println("Usage: java LanceServiceEtablissementSuperieur <ip> <port>");
             System.exit(1);
         }
+
         // Recuperation du registre du serveur
         Registry registry = null;
         try {
@@ -32,12 +33,13 @@ public class LanceServiceEtablissementSuperieur {
             String retour = sc.nextLine();
             boolean iut = res.contains(retour);
 
+            sc.close();
+
             EtablissementSup etablissementSup = new EtablissementSup(iut);
             //Enregistrement du service
             serveur.enregistrerServiceEtablissementSup(etablissementSup);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        } catch (NotBoundException e) {
+            System.out.println("On lance le service etablissement superieur et on l'enregistre au serveur.");
+        } catch (RemoteException | NotBoundException e) {
             throw new RuntimeException(e);
         }
 

@@ -58,11 +58,10 @@ public class RouteHandler implements HttpHandler {
                     // si la méthode est GET
                     System.out.println("GET RESTAURANTS");
                     // on récupère le service
-                    String response = serveur.getRestaurant();
+                    String response = serveur.getRestaurant().getRestaurants();
                     System.out.println(response);
                     // on écrit la réponse
                     httpExchange.sendResponseHeaders(200, response.getBytes().length);
-
                     outputStream.write(response.getBytes());
                 }
             }

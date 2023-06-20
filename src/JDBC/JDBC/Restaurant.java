@@ -1,48 +1,52 @@
 package JDBC.JDBC;
 
-public class Restaurant {
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.sql.SQLException;
 
-    private String nom;
-    private String longitude;
-    private String latitude;
+public class Restaurant implements InterfaceRestaurant, Serializable
+{
+    //Modele qui permet d'accéder a la base de donnée
+    private final transient RestaurantModele modele;
 
-    /**
-     * Constructeur de la classe Restaurant
-     * @param nom
-     * @param longitude
-     * @param latitude
-     */
-    public Restaurant(String nom, String longitude, String latitude) {
-        this.nom = nom;
-        this.longitude = longitude;
-        this.latitude = latitude;
-    }
-
-    //
-    // GETTER
-    //
-
-    /**
-     * getter du nom du restaurant
-     * @return le nom du restaurant
-     */
-    public String getNom() {
-        return nom;
+    public Restaurant(String usernam, String password)
+    {
+        this.modele = new RestaurantModele(usernam,password);
     }
 
     /**
-     * getter de la longitude du restaurant
-     * @return
+     * Méthode qui permet d'accéder aux données des restaurants
+     * @return retourne les données en JSON
+     * @throws RemoteException, exception RMI
      */
-    public String getLongitude() {
-        return longitude;
+    @Override
+    public String getRestaurants() throws RemoteException
+    {
+        try {
+            //Attribut qui représente les données des restaurants en JSON
+            return this.modele.getListeRestaurant();
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
-     * getter de la latitude du restaurant
-     * @return
+     * Méthode qui permet de reserver une table d'un restaurant
+     * @param idRestaurant, id du restaurant
+     * @param numTable, numéro de la table
+     * @param date, date de la reservation,
+     * @param nom, nom de la personnne,
+     * @param prenom, prenom de la personne
+     * @param nbPersonnes, nombre de personne
+     * @param numeroTel, numéro de téléphone
+     * @throws RemoteException, exception RMI
      */
-    public String getLatitude() {
-        return latitude;
+    @Override
+    public void reserver(int idRestaurant, int numTable, String date,String nom, String prenom, int nbPersonnes,String numeroTel) throws RemoteException
+    {
+        this.modele.reservation(idRestaurant,numTable,date,nom,prenom,nbPersonnes,numeroTel);
     }
 }
