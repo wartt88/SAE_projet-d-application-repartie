@@ -1,10 +1,25 @@
 #map {
-    height: 50em;
-    width: 50em;
+    height: 100%;
+    width: 100%;
     z-index: 1;
+    border: 2px solid grey;
+}
+
+.left_map {
+    background-color: red;
+    width: 50%;
+    height: 90%;
 }
 
 .map_content {
     background-color: #d38d8d;
     padding: 1em;
+    height: 100vh;
+    display: flex;
+}
+
+.righ_map {
+    width: 50%;
+    height: 90%;
+    background-color: blue;
 }
