@@ -1,3 +1,5 @@
+import {fetchIncidents} from "./Incidents.js";
+
 // Créer une carte avec Leaflet et la centrer sur les coordonnées spécifiées
 var map = L.map("map").setView([48.6921, 6.1844], 13);
 
@@ -8,16 +10,20 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
-const Icon = L.Icon.extend({
+export const defaultIcon = L.Icon.extend({
     options: {
         iconSize: [40, 40],
         //iconAnchor: [22, 94],
         //popupAnchor: [-3, -76], Déplace les logos quand on unzoom ?
     },
 });
-const etablissementIcon = new Icon({iconUrl: "../logo/EtablissementSup.png"});
-const restaurantIcon = new Icon({iconUrl: "../logo/Restaurant.png"});
-export const stationIcon = new Icon({iconUrl: "../logo/StationVelo.png"});
+const etablissementIcon = new defaultIcon({
+    iconUrl: "../logo/EtablissementSup.png",
+});
+const restaurantIcon = new defaultIcon({iconUrl: "../logo/Restaurant.png"});
+export const stationIcon = new defaultIcon({
+    iconUrl: "../logo/StationVelo.png",
+});
 
 /**
  * Ajoute des marqueurs de restaurant à la carte.
@@ -46,15 +52,15 @@ export function addRestaurantMarkers(restaurants) {
  * @param {Object} restaurant - L'objet représentant le restaurant.
  */
 function showInscriptionForm(restaurant) {
-  let formElement = document.querySelector(".reservation");
-  formElement.style.display = "flex";
+    let formElement = document.querySelector(".reservation");
+    formElement.style.display = "flex";
 }
 
 // Ajouter un gestionnaire d'événement au bouton de fermeture du formulaire
 let closebtn = document.querySelector("#close");
 closebtn.addEventListener("click", function (event) {
-  let formElement = document.querySelector(".reservation");
-  formElement.style.display = "none";
+    let formElement = document.querySelector(".reservation");
+    formElement.style.display = "none";
 });
 
 // Ajouter les marqueurs des restaurants de test à la carte
@@ -156,3 +162,13 @@ const bike = async () => {
 };
 
 bike();
+
+export const addMarker = (nord, est, icon, descr) => {
+    var marker = L.marker([nord, est], {
+        icon: icon,
+    }).addTo(map);
+    // Associer une info-bulle au marqueur contenant le nom du restaurant
+    marker.bindPopup(descr);
+};
+
+fetchIncidents();
