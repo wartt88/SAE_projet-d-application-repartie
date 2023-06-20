@@ -3,31 +3,41 @@ var map = L.map("map").setView([48.6921, 6.1844], 13);
 
 // Ajouter une couche de tuiles OpenStreetMap à la carte
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution:
-    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 19,
+    attribution:
+        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
+
+const Icon = L.Icon.extend({
+    options: {
+        iconSize: [40, 40],
+        iconAnchor: [22, 94],
+        //popupAnchor: [-3, -76], Déplace les logos quand on unzoom ?
+    },
+});
+const etablissementIcon = new Icon({iconUrl: "../logo/EtablissementSup.png"});
+const restaurantIcon = new Icon({iconUrl: "../logo/Restaurant.png"});
 
 /**
  * Ajoute des marqueurs de restaurant à la carte.
  * @param {Array} restaurants - Un tableau d'objets représentant les restaurants.
  */
 export function addRestaurantMarkers(restaurants) {
-  restaurants.forEach(function (restaurant) {
-    // Créer un marqueur pour chaque restaurant et l'ajouter à la carte
-    var marker = L.marker([restaurant.latitude, restaurant.longitude]).addTo(
-      map
-    );
+    restaurants.forEach(function (restaurant) {
+        // Créer un marqueur pour chaque restaurant et l'ajouter à la carte
+        var marker = L.marker([restaurant.latitude, restaurant.longitude], {
+            icon: restaurantIcon,
+        }).addTo(map);
 
-    // Associer une info-bulle au marqueur contenant le nom du restaurant
-    marker.bindPopup(restaurant.nom);
+        // Associer une info-bulle au marqueur contenant le nom du restaurant
+        marker.bindPopup(restaurant.nom);
 
-    // Ajouter un événement de clic pour chaque marqueur
-    marker.on("click", function () {
-      // Afficher le formulaire d'inscription
-      showInscriptionForm(restaurant);
+        // Ajouter un événement de clic pour chaque marqueur
+        marker.on("click", function () {
+            // Afficher le formulaire d'inscription
+            showInscriptionForm(restaurant);
+        });
     });
-  });
 }
 
 /**
@@ -47,7 +57,7 @@ closebtn.addEventListener("click", function (event) {
 });
 
 // Données de test pour les restaurants
-let resTest = [
+/* let resTest = [
   {
     nom: "Restaurant A",
     longitude: 6.1784,
@@ -64,9 +74,9 @@ let resTest = [
     latitude: 48.6866,
   },
 ];
-
+ */
 // Ajouter les marqueurs des restaurants de test à la carte
-addRestaurantMarkers(resTest);
+// addRestaurantMarkers(resTest);
 
 // URL de l'API pour récupérer les restaurants
 let URL_API = "http://10.11.58.65:9000/restaurant/getTables";
@@ -96,10 +106,13 @@ export function addEtablissementMarker(etablissement) {
         console.log("coordonne", etablissement.fields.coordonnees);
         // Créer un marqueur pour chaque restaurant et l'ajouter à la carte
         if (!etablissement.fields.coordonnees) return;
-        var marker = L.marker([
-            etablissement.fields.coordonnees[0],
-            etablissement.fields.coordonnees[1],
-        ]).addTo(map);
+        var marker = L.marker(
+            [
+                etablissement.fields.coordonnees[0],
+                etablissement.fields.coordonnees[1],
+            ],
+            {icon: etablissementIcon}
+        ).addTo(map);
 
         // Associer une info-bulle au marqueur contenant le nom du restaurant
         marker.bindPopup(etablissement.fields.url);
