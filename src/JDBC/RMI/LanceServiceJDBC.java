@@ -13,7 +13,7 @@ public class LanceServiceJDBC {
     public static void main(String[] args) {
         if (args.length != 4)
         {
-            System.out.println("Usage: java LanceServiceEtablissementSuperieur <ip> <port> usernameDB passwordDB");
+            System.out.println("Usage: java LanceServiceJDBC <ip> <port> usernameDB passwordDB");
             System.exit(1);
         }
         // Recuperation du registre du serveur
