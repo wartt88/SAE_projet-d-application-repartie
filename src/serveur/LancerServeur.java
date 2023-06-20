@@ -1,7 +1,6 @@
 package serveur;
 
 import com.sun.net.httpserver.HttpServer;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -10,7 +9,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class LancerServeur {
-
     // port sur lequel le serveur HTTP va écouter
     private static final int HTTP_PORT = 9000;
 
@@ -44,9 +42,6 @@ public class LancerServeur {
         // on lance le serveur
         httpServer.start();
         // on affiche les informations du serveur
-        System.out.println("Serveur lancé sur l'ip  :" + ip.getHostAddress() + "Service RMI sur le port : " + RMI_PORT + " Service HTTP sur le port : " + HTTP_PORT);
-
+        System.out.println("Serveur lancé sur l'ip  : " + ip.getHostAddress() + " Service RMI sur le port : " + RMI_PORT + " Service HTTP sur le port : " + HTTP_PORT);
     }
-
-
 }

@@ -5,10 +5,7 @@ import org.json.JSONObject;
 import java.sql.*;
 
 
-public class Modele{
-    // Information de connexion à la base de données
-    private String userName;
-    private String password;
+public class RestaurantModele {
     // Objet de connexion à la base de données
     private Connection connection = null;
 
@@ -19,10 +16,9 @@ public class Modele{
      * @param userName passé en premiere argument
      * @param password passé en deuxieme argument
      */
-    public Modele(String userName, String password) {
+    public RestaurantModele(String userName, String password) {
         // On initialise les attributs
-        this.userName = userName;
-        this.password = password;
+        // Information de connexion à la base de données
 
         // try catch pour se connecter à la base de données
         try {
@@ -30,9 +26,9 @@ public class Modele{
             String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
             this.connection = DriverManager.getConnection(url, userName, password);
             this.connection.setAutoCommit(false);
-            System.out.println("connection successful !");
+            System.out.println("Connexion a la base de donnee reussis !");
         } catch (Exception e) {
-            System.out.println("connection failed");
+            System.out.println("Erreur: connexion a la base de donne echoue.");
             e.printStackTrace();
         }
     }
@@ -62,6 +58,7 @@ public class Modele{
 
             prepare.executeUpdate();
             this.connection.commit();
+            System.out.println("reservation réussis avec succes.");
         } catch (SQLException e) {
             System.out.println("Erreur lors de la reservation");
             e.printStackTrace();
@@ -88,6 +85,7 @@ public class Modele{
             objetJson.put("nom", res.getString("nom"));
             json.put(objetJson);
         }
+        System.out.println("la liste des restaurants a ete envoye avec succes.");
         return json.toString();
     }
 }

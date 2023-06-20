@@ -35,9 +35,8 @@ public class LanceServiceEtablissementSuperieur {
             EtablissementSup etablissementSup = new EtablissementSup(iut);
             //Enregistrement du service
             serveur.enregistrerServiceEtablissementSup(etablissementSup);
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        } catch (NotBoundException e) {
+            System.out.println("On lance le service etablissement superieur et on l'enregistre au serveur.");
+        } catch (RemoteException | NotBoundException e) {
             throw new RuntimeException(e);
         }
 
