@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservation</title>
+
+    <link rel="stylesheet" href="../css/Style.css">
+    <link rel="stylesheet" href="../css/Reservation.css">
+</head>
+<body>
+    <header>
+        <h1>Réservation d'une table</h1>
+    </header>
+    <main>
+        <div class="form">
+            <div class="cred">
+                <Input placeholder="Prénom"></Input>
+                <Input placeholder="Nom"></Input>
+            </div>
+            <div class="date">
+                <input type="date" id="datePicker" name="datePicker">
+            </div>
+            <div class="info">
+                <div class="nb_personne">
+                    <input placeholder="nombre de personnes" type="number" id="nbpersonne" name="entier" min="0" max="100" step="1">              
+                </div>
+                <div class="num_tab">
+                    <label for="">Numéro de table : </label>
+                    <select id="entier" name="entier">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <!-- Ajoutez d'autres options ici -->
+                      </select>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+</html>
