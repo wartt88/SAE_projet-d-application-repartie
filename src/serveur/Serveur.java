@@ -22,6 +22,7 @@ public class Serveur implements InterfaceServeur {
     public void enregistrerServiceRestaurant(InterfaceRestaurant modeleData) throws RemoteException {
         System.out.println("Enregistrement du service Restaurant");
         this.restaurant = modeleData;
+        System.out.println(this.restaurant);
     }
 
     /**
@@ -55,7 +56,7 @@ public class Serveur implements InterfaceServeur {
      */
     public InterfaceEtablissementSup getEtablissementSup() throws ServiceNotBindException {
         if (this.etablissementSup == null)
-            throw new ServiceNotBindException("Le service restaurant n'est pas enregistre actuellement sur le serveur");
+            throw new ServiceNotBindException("Le service etablissement n'est pas enregistre actuellement sur le serveur");
         System.out.println("Récupération du service Etablissement superieur");
         return this.etablissementSup;
     }
