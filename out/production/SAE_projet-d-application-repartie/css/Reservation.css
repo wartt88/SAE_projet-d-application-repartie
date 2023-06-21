@@ -1,0 +1,137 @@
+.reservation {
+    display: none;
+    z-index: 200;
+    top: 0;
+    left: 0;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background-color: #f3f3f385;
+    justify-content: center;
+    align-items: center;
+}
+
+.form_reservation {
+    position: relative;
+    padding: 2em;
+    background: linear-gradient(145deg, #FFFFFF, #C8C8C8);
+    border-radius: 50px;
+    box-shadow: 9.91px 9.91px 15px #DDDDDD, -9.91px -9.91px 15px #FFFFFF;
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#close {
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 2em;
+}
+
+#close:hover {
+    cursor: pointer;
+    color: #d38d8d;
+}
+
+.name_form {
+    display: flex;
+    justify-content: space-around;
+}
+
+.name_form input {
+    border: none;
+    background-color: transparent;
+    font-size: 1.3em;
+    padding: 0.5em;
+    margin: 1em;
+    background: linear-gradient(145deg, #D2D2D2, #FFFFFF);
+    border-radius: 15px;
+    box-shadow: inset 9.91px 9.91px 15px #DDDDDD, inset -9.91px -9.91px 15px #FFFFFF;
+}
+
+.name_form input:focus {
+    outline: none;
+}
+
+.info_reservation {
+    display: flex;
+    justify-content: space-around;
+}
+
+.info_reservation input {
+    border: none;
+    background-color: transparent;
+    font-size: 1.3em;
+    padding: 0.5em;
+    margin: 1em;
+    background: linear-gradient(145deg, #D2D2D2, #FFFFFF);
+    border-radius: 15px;
+    box-shadow: inset 9.91px 9.91px 15px #DDDDDD, inset -9.91px -9.91px 15px #FFFFFF;
+}
+
+.info_reservation input:focus {
+    outline: none;
+}
+
+#numtab {
+    width: 7em;
+}
+
+#nbper {
+    width: 9em;
+}
+
+.send {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.send button {
+    border: none;
+    background-color: transparent;
+    font-size: 1.3em;
+    padding: 0.5em;
+    margin: 1em;
+    border-radius: 10px;
+    background-color: rgb(101, 182, 101);
+    transition: ease 0.3s;
+}
+
+.send button:hover {
+    cursor: pointer;
+    background-color: rgba(104, 159, 104, 0.5);
+}
+
+.send button:focus {
+    outline: none;
+}
+
+.phone
+{
+    display: flex;
+    justify-content: space-around;   
+}
+
+.phone input {
+    border: none;
+    background-color: transparent;
+    font-size: 1.3em;
+    padding: 0.5em;
+    margin: 1em;
+    background: linear-gradient(145deg, #D2D2D2, #FFFFFF);
+    border-radius: 15px;
+    box-shadow: inset 9.91px 9.91px 15px #DDDDDD, inset -9.91px -9.91px 15px #FFFFFF;
+}
+
+.send button:hover {
+    cursor: pointer;
+    background-color: rgba(104, 159, 104, 0.5);
+    
+}
