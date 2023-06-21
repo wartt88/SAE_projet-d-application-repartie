@@ -14,7 +14,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 export const defaultIcon = L.Icon.extend({
   options: {
-    iconSize: [40, 40],
+    iconSize: [30, 30],
     //iconAnchor: [22, 94],
     //popupAnchor: [-3, -76], Déplace les logos quand on unzoom ?
   },
