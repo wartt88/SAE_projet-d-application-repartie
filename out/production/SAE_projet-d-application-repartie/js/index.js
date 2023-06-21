@@ -1,6 +1,6 @@
 import { fetchIncidents } from "./Incidents.js";
 
-let ip = "172.19.173.243";
+let ip = "10.11.17.202";
 
 // Créer une carte avec Leaflet et la centrer sur les coordonnées spécifiées
 var map = L.map("map").setView([48.6921, 6.1844], 13);

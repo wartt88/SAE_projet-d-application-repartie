@@ -18,5 +18,24 @@
 }
 
 .righ_map {
+    width: 10em;
     padding: 2em;
+}
+
+.check_list {
+    margin-top: 2em;
+}
+
+.righ_map label {
+    font-size: 1.5em;
+}
+
+.righ_map input {
+    height: 2em;
+    width: 2em;
+}
+
+.choixe {
+    display: flex;
+    align-items: center;
 }
