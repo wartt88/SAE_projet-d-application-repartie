@@ -99,14 +99,14 @@
     font-size: 1.3em;
     padding: 0.5em;
     margin: 1em;
-    background: linear-gradient(145deg, #D2D2D2, #FFFFFF);
-    border-radius: 15px;
-    box-shadow: inset 9.91px 9.91px 15px #DDDDDD, inset -9.91px -9.91px 15px #FFFFFF;
+    border-radius: 10px;
+    background-color: rgb(101, 182, 101);
     transition: ease 0.3s;
 }
 
 .send button:hover {
     cursor: pointer;
+    background-color: rgba(104, 159, 104, 0.5);
 }
 
 .send button:focus {
@@ -132,6 +132,6 @@
 
 .send button:hover {
     cursor: pointer;
-    background: linear-gradient(145deg, #FFFFFF, #D2D2D2);
-    box-shadow: 9.91px 9.91px 15px #DDDDDD, -9.91px -9.91px 15px #FFFFFF;
+    background-color: rgba(104, 159, 104, 0.5);
+    
 }

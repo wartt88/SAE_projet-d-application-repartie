@@ -1,6 +1,6 @@
 import { fetchIncidents } from "./Incidents.js";
 
-let ip = "10.11.17.202";
+let ip = "10.11.58.65";
 
 // Créer une carte avec Leaflet et la centrer sur les coordonnées spécifiées
 var map = L.map("map").setView([48.6921, 6.1844], 13);
@@ -96,7 +96,7 @@ function fetchEtablissement() {
       addEtablissementMarker(data);
     });
 }
-fetchEtablissement;
+fetchEtablissement
 
 export function addEtablissementMarker(etablissement) {
   etablissement.forEach(function (etablissement) {
@@ -189,20 +189,16 @@ function envoyerReservation(idRestaurant) {
   let prenom = document.getElementById("name").value;
   let nom = document.getElementById("surname").value;
   let nombrePersonnes = document.getElementById("nbper").value;
-  let idTable = document.getElementById("numtab").value;
+  let idTable = document.getElementById("numtable").value;
   let date = document.getElementById("date").value;
   let heure = document.getElementById("time").value;
   let phone = document.getElementById("phone").value;
-  console.log(idRestaurant);
+
   // si phone est vide ou ne contient pas 10 chiffres
   if (phone == "" || phone.length != 10) {
     alert("Veuillez entrer un numéro de téléphone valide");
     return;
   }
-  console.log(date);
-  console.log(heure);
-  const formattedDate = date + " " + heure + ":00";
-  console.log(formattedDate);
 
   // Créer un objet contenant les données de réservation
   const reservationData = {
@@ -211,7 +207,8 @@ function envoyerReservation(idRestaurant) {
     prenom: prenom,
     nbPersonnes: nombrePersonnes,
     numTable: idTable,
-    date: formattedDate,
+    date: date,
+    date: date + "/" + heure + ":00",
     telephone: phone,
   };
 
@@ -225,19 +222,14 @@ function envoyerReservation(idRestaurant) {
   })
     .then((response) => {
       if (response.ok) {
-        return "Réservation effectuée avec succès !";
+        console.log("Réservation effectuée avec succès !");
         // Effectuer des actions supplémentaires après une réservation réussie
       } else {
-        return response.text();
+        throw new Error("Erreur lors de la réservation : " + response.status);
       }
     })
-    .then((text) => {
-      alert(text);
-    })
     .catch((error) => {
-      console.log(error);
       console.log("Erreur lors de la réservation : " + error.message);
-      alert("Erreur lors de la réservation : " + error.message);
       // Gérer les erreurs de réservation
     });
 }
