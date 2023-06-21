@@ -62,6 +62,9 @@ function showInscriptionForm(restaurant) {
     envoyerReservation(restaurant.id);
   });
 
+  let title_res = document.querySelector("#title_res");
+  title_res.innerHTML = "Réservation : "+restaurant.nom;
+
   // on clear le content de tout les input
   let inputs = formElement.querySelectorAll("input");
   inputs.forEach(function (input) {

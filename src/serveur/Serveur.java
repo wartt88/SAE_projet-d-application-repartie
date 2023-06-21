@@ -61,11 +61,4 @@ public class Serveur implements InterfaceServeur {
         return this.etablissementSup;
     }
 
-    /**
-     * Méthode que nous n'allons pas utiliser
-     */
-    public String reserverRestaurant() {
-        //TODO
-        return null;
-    }
 }

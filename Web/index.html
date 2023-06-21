@@ -9,12 +9,71 @@
 
     <link rel="stylesheet" href="./css/Style.css">
     <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/footer.css">
 </head>
 <body>
 
     <header>
         <h1>SAE - Projet d'application répartie</h1>
+        <div class="links_header">
+            <a href="./html/map.html">Map</a>
+            <a href="">Météo</a>
+        </div>
     </header>
 
-</body>
+    <main>
+        <div class="situation">
+            <h1>Mise en situation : </h1>
+            <p>Réalisation d'une application permettant de choisir un restaurant sur une map et d'y faire une réservation</p>
+        </div>
+        <div class="schema">
+            <h1>Schéma de l'architecture du projet</h1>
+            <div class="part_schema">
+                <img src="./images/schema.png" alt="" id="schema">
+            </div>
+        </div>
+        <div class="process_desc">
+            <div class="process-description">
+                <h2>Le service central</h2>
+                <p>
+                  Il joue plusieurs rôles dans notre application. Il permet de rassembler les différentes données comme les restaurants de Nancy ou les établissements supérieurs au travers de différents services RMI qui s'enregistrent sur lui. Ensuite grâce à son implémentation en serveur HTTP, il rend ces données accessibles à la partie web JS, il fait donc office de proxy.
+                </p>
+              </div>
+              
+              <div class="process-description">
+                <h2>Le site web</h2>
+                <p>
+                  Il propose une carte interactive permettant l’accès et l’utilisation des données du service central. En complément, il envoie une requête sur une autre API afin de connaître les différents emplacements de station de vélo en libre service et des travaux en cours toujours sur Nancy.
+                </p>
+              </div>
+              
+              <div class="process-description">
+                <h2>Le service de restauration</h2>
+                <p>
+                  Ce service implémente la connexion à une base de données Oracle. Il doit s’enregistrer auprès du service central afin que ce dernier puisse l’utiliser pour récupérer ses données. Sa base de données est hébergée sur le serveur de l’IUT, ce qui lui permet d’être accessible depuis tout le bâtiment. L’accès à la liste des restaurants ou encore la possibilité de réserver dans l'un de ces derniers sont des fonctionnalités spécifiques à ce service.
+                </p>
+              </div>
+              
+              <div class="process-description">
+                <h2>Le service d’établissements supérieurs</h2>
+                <p>
+                  Ce service implémente un client HTTP Java. Il doit s’enregistrer auprès du service central afin que ce dernier puisse l’utiliser pour récupérer ses données. Afin de contourner le blocage des données à la lecture depuis les ordinateurs de l’IUT, il est obligatoire d’appliquer le proxy de l’IUT et d’obliger la redirection web lorsqu’elle est possible.
+                </p>
+              </div>
+        </div>
+          
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Mon Entreprise. Tous droits réservés.</p>
+            <div class="link">
+                <a href="#">Accueil</a>
+                <a href="#">À propos</a>
+                <a href="#">Services</a>
+                <a href="#">Contact</a>
+            </div>
+          </div>
+    </footer>
+</
 </html>

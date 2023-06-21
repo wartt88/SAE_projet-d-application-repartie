@@ -61,6 +61,12 @@ function showInscriptionForm(restaurant) {
   sendbtn.addEventListener("click", function (event) {
     envoyerReservation(restaurant.id);
   });
+
+  // on clear le content de tout les input
+  let inputs = formElement.querySelectorAll("input");
+  inputs.forEach(function (input) {
+    input.value = "";
+  });
 }
 
 // Ajouter un gestionnaire d'événement au bouton de fermeture du formulaire
@@ -194,6 +200,24 @@ function envoyerReservation(idRestaurant) {
   let heure = document.getElementById("time").value;
   let phone = document.getElementById("phone").value;
   console.log(idRestaurant);
+
+  if (prenom == "" || nom == "") {
+    alert("Veuillez entrer votre nom et prénom");
+    return;
+  }
+
+  // si nombrePersonnes est vide ou ne contient pas que des chiffres
+  if (nombrePersonnes == "" || !/^\d+$/.test(nombrePersonnes)) {
+    alert("Veuillez entrer un nombre de personnes valide");
+    return;
+  }
+
+  // si idTable est vide ou ne contient pas que des chiffres
+  if (idTable == "" || !/^\d+$/.test(idTable)) {
+    alert("Veuillez entrer un numéro de table valide");
+    return;
+  }
+
   // si phone est vide ou ne contient pas 10 chiffres
   if (phone == "" || phone.length != 10) {
     alert("Veuillez entrer un numéro de téléphone valide");
