@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>D:/Dev/SAEProgR/SAE_projet-d-application-repartie/src</OriginalElement>
+  <nodes>
+    <node x="959.4375" y="-166.93291404612154">donnees_bloquees.RMI.LanceServiceEtablissementSuperieur</node>
+    <node x="57.52262403913346" y="110.0">serveur.ServiceNotBindException</node>
+    <node x="1035.492200758711" y="253.36757512229184">JDBC.JDBC.Restaurant</node>
+    <node x="441.0" y="-2.0">serveur.Serveur</node>
+    <node x="1063.7016946191475" y="21.0052410901464">JDBC.JDBC.InterfaceRestaurant</node>
+    <node x="520.25" y="215.0">serveur.RouteHandler</node>
+    <node x="37.0" y="-139.0">serveur.InterfaceServeur</node>
+    <node x="1998.074860237596" y="-55.24668064290728">JDBC.JDBC.BDDException</node>
+    <node x="1093.2458695218138" y="438.3515024458418">JDBC.RMI.LanceServiceJDBC</node>
+    <node x="761.5833333333334" y="-431.4779874213835">donnees_bloquees.InterfaceEtablissementSup</node>
+    <node x="947.9375" y="-307.56673654786846">donnees_bloquees.EtablissementSup</node>
+    <node x="601.5" y="343.0">serveur.LancerServeur</node>
+    <node x="1573.607354996506" y="9.505241090146399">JDBC.JDBC.RestaurantModele</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="JDBC.JDBC.Restaurant" target="JDBC.JDBC.RestaurantModele" relationship="TO_ONE">
+      <point x="155.0" y="-49.5" />
+      <point x="1422.992200758711" y="277.9038853948283" />
+      <point x="1518.5895737246713" y="277.9038853948283" />
+      <point x="1518.5895737246713" y="175.18640810621912" />
+      <point x="1609.082058001398" y="175.18640810621912" />
+      <point x="1609.082058001398" y="43.2526205450732" />
+      <point x="1938.107354996506" y="43.2526205450732" />
+      <point x="121.5" y="49.5" />
+    </edge>
+    <edge source="JDBC.JDBC.Restaurant" target="JDBC.JDBC.RestaurantModele" relationship="CREATE">
+      <point x="227.29797394429715" y="0.6577777777774827" />
+      <point x="1495.2901747030082" y="302.86757512229184" />
+      <point x="1518.5895737246713" y="302.86757512229184" />
+      <point x="1518.5895737246713" y="302.8675751222919" />
+      <point x="1542.507924029151" y="302.8675751222919" />
+      <point x="1542.507924029151" y="326.3102725366872" />
+      <point x="1695.107354996506" y="326.3102725366872" />
+      <point x="-121.5" y="49.5" />
+    </edge>
+    <edge source="serveur.Serveur" target="JDBC.JDBC.InterfaceRestaurant" relationship="TO_ONE">
+      <point x="166.33333333333337" y="-82.5" />
+      <point x="856.8333333333334" y="80.5" />
+      <point x="1179.9516946191475" y="80.5" />
+      <point x="-116.25" y="38.0" />
+    </edge>
+    <edge source="JDBC.JDBC.RestaurantModele" target="JDBC.JDBC.BDDException" relationship="CREATE">
+      <point x="0.0" y="-49.5" />
+      <point x="1816.607354996506" y="-176.0" />
+      <point x="2094.074860237596" y="-176.0" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="serveur.LancerServeur" target="serveur.RouteHandler" relationship="CREATE">
+      <point x="0.0" y="-38.0" />
+      <point x="690.5" y="317.0" />
+      <point x="630.25" y="317.0" />
+      <point x="0.0" y="38.0" />
+    </edge>
+    <edge source="JDBC.JDBC.Restaurant" target="JDBC.JDBC.InterfaceRestaurant" relationship="REALIZATION">
+      <point x="-155.0" y="-49.5" />
+      <point x="1112.992200758711" y="286.9531795946887" />
+      <point x="1412.4516946191475" y="286.9531795946887" />
+      <point x="116.25" y="38.0" />
+    </edge>
+    <edge source="donnees_bloquees.RMI.LanceServiceEtablissementSuperieur" target="donnees_bloquees.EtablissementSup" relationship="CREATE">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="38.0" />
+    </edge>
+    <edge source="serveur.LancerServeur" target="serveur.Serveur" relationship="CREATE">
+      <point x="0.0" y="-38.0" />
+      <point x="690.5" y="317.0" />
+      <point x="750.75" y="317.0" />
+      <point x="750.75" y="189.0" />
+      <point x="815.25" y="189.0" />
+      <point x="124.75" y="82.5" />
+    </edge>
+    <edge source="serveur.Serveur" target="serveur.InterfaceServeur" relationship="REALIZATION">
+      <point x="-166.33333333333337" y="-82.5" />
+      <point x="524.1666666666666" y="-22.0" />
+      <point x="286.5" y="-22.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="serveur.Serveur" target="donnees_bloquees.InterfaceEtablissementSup" relationship="TO_ONE">
+      <point x="166.33333333333337" y="-82.5" />
+      <point x="-95.25" y="26.5" />
+    </edge>
+    <edge source="donnees_bloquees.EtablissementSup" target="donnees_bloquees.InterfaceEtablissementSup" relationship="REALIZATION">
+      <point x="0.0" y="-38.0" />
+      <point x="1138.4375" y="-203.04262753319338" />
+      <point x="1142.5833333333335" y="-203.04262753319338" />
+      <point x="190.5000000000001" y="26.5" />
+    </edge>
+    <edge source="JDBC.RMI.LanceServiceJDBC" target="JDBC.JDBC.Restaurant" relationship="CREATE">
+      <point x="0.0" y="-38.0" />
+      <point x="1191.2458695218138" y="305.4257512229209" />
+      <point x="1222.7315438754126" y="305.4257512229209" />
+      <point x="1222.7315438754126" y="352.36757512229184" />
+      <point x="0.0" y="49.5" />
+    </edge>
+    <edge source="serveur.Serveur" target="serveur.ServiceNotBindException" relationship="CREATE">
+      <point x="0.0" y="-82.5" />
+      <point x="690.5" y="80.5" />
+      <point x="192.02262403913346" y="80.5" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="serveur.RouteHandler" target="serveur.Serveur" relationship="TO_ONE">
+      <point x="0.0" y="-38.0" />
+      <point x="630.25" y="189.0" />
+      <point x="565.75" y="189.0" />
+      <point x="-124.75" y="82.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0163352272727284" showDependencies="true" x="1102.1324947589128" y="189.9407826694616" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
