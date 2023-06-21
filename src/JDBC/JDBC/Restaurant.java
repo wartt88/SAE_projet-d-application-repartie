@@ -45,8 +45,7 @@ public class Restaurant implements InterfaceRestaurant, Serializable
      * @throws RemoteException, exception RMI
      */
     @Override
-    public void reserver(int idRestaurant, int numTable, String date,String nom, String prenom, int nbPersonnes,String numeroTel) throws RemoteException
-    {
+    public void reserver(int idRestaurant, int numTable, String date,String nom, String prenom, int nbPersonnes,String numeroTel) throws RemoteException, BDDException {
         this.modele.reservation(idRestaurant,numTable,date,nom,prenom,nbPersonnes,numeroTel);
     }
 }

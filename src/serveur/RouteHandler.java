@@ -1,5 +1,6 @@
 package serveur;
 
+import JDBC.JDBC.BDDException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.json.JSONObject;
@@ -74,6 +75,13 @@ public class RouteHandler implements HttpHandler {
             if (requestedURL.startsWith("/restaurant/reserverTable")) {
                 System.out.println("POST RESERVER TABLE");
                 // si la méthode n'est pas POST
+                if (requestMethod.equals("OPTIONS")) {
+                    httpExchange.sendResponseHeaders(200, 0);
+                    // on ferme le flux de sortie
+                    outputStream.close();
+                    return;
+                }
+
                 if (!requestMethod.equals("POST")) {
                     // on envoie une erreur 405
                     httpExchange.sendResponseHeaders(405, 0);
@@ -109,6 +117,11 @@ public class RouteHandler implements HttpHandler {
                         String telephone = jsonObject.getString("telephone");
                         serveur.getRestaurant().reserver(id, numTable, date, nom, prenom, nbPersonnes, telephone);
                         httpExchange.sendResponseHeaders(200, 0);
+                    } catch (BDDException e) {
+                        httpExchange.sendResponseHeaders(400, 0);
+                        OutputStream body = httpExchange.getResponseBody();
+                        body.write(e.getMessage().getBytes());
+                        body.close();
                     } catch (Exception e) {
                         httpExchange.sendResponseHeaders(400, e.getMessage().getBytes().length);
                         outputStream.write(e.getMessage().getBytes());
