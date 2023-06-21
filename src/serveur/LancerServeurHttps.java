@@ -96,7 +96,7 @@ public class LancerServeurHttps {
             throw new RuntimeException(e);
         }
         // on crée le route handler
-        httpsServer.createContext("/", new RouteHandler(serveur));
+        httpsServer.createContext("/", new RouteHandlerHttps(serveur));
         // on lance le serveur HTTP
         httpsServer.setExecutor(null);
         // on lance le serveur
