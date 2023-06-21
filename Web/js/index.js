@@ -1,6 +1,6 @@
 import { fetchIncidents } from "./Incidents.js";
 
-let ip = "10.11.17.202";
+let ip = "10.11.58.65";
 
 // Créer une carte avec Leaflet et la centrer sur les coordonnées spécifiées
 var map = L.map("map").setView([48.6921, 6.1844], 13);
@@ -61,7 +61,6 @@ function showInscriptionForm(restaurant) {
   sendbtn.addEventListener("click", function (event) {
     envoyerReservation(restaurant.id);
   });
-
 }
 
 // Ajouter un gestionnaire d'événement au bouton de fermeture du formulaire
@@ -78,21 +77,26 @@ closebtn.addEventListener("click", function (event) {
 let URL_API = ip + ":9000/restaurant/getTables";
 
 // Effectuer une requête vers l'API pour récupérer les restaurants
-fetch(URL_API, { method: "GET" })
-  .then((response) => response.json())
-  .then((data) => {
-    // Ajouter les marqueurs des restaurants récupérés à la carte
-    addRestaurantMarkers(data);
-  })
-  .catch((error) => console.log(error));
+function fetchRestaurants() {
+  fetch("http://" + URL_API, { method: "GET" })
+    .then((response) => response.json())
+    .then((data) => {
+      // Ajouter les marqueurs des restaurants récupérés à la carte
+      addRestaurantMarkers(data);
+    })
+    .catch((error) => console.log(error));
+}
+fetchRestaurants();
 
 // Effectuer une requête vers l'API pour récupérer les etablissements
-
-fetch("http://" + ip + ":9000/recupererListEtablissement", { method: "GET" })
-  .then((response) => response.json())
-  .then((data) => {
-    addEtablissementMarker(data);
-  });
+function fetchEtablissement() {
+  fetch("http://" + ip + ":9000/recupererListEtablissement", { method: "GET" })
+    .then((response) => response.json())
+    .then((data) => {
+      addEtablissementMarker(data);
+    });
+}
+fetchEtablissement
 
 export function addEtablissementMarker(etablissement) {
   etablissement.forEach(function (etablissement) {
@@ -123,11 +127,11 @@ function addStationMarker(station) {
   // Associer une info-bulle au marqueur contenant le nom du restaurant
   marker.bindPopup(
     "Adresse de la station: " +
-    station.address +
-    " nombre de vélos disponible sur la station: " +
-    station.veloDispo +
-    " nombre de place de parkings libre sur la station: " +
-    station.placesDispo
+      station.address +
+      " nombre de vélos disponible sur la station: " +
+      station.veloDispo +
+      " nombre de place de parkings libre sur la station: " +
+      station.placesDispo
   );
 
   // Ajouter un événement de clic pour chaque marqueur
@@ -236,9 +240,7 @@ check.forEach((element) => {
   element.addEventListener("click", displayItemsMap);
 });
 
-
 function displayItemsMap() {
-
   console.log("displayItemsMap");
 
   // on remove to les markers
@@ -251,6 +253,7 @@ function displayItemsMap() {
   let check_rest = document.getElementById("check_rest");
   let check_vel = document.getElementById("check_vel");
   let check_inc = document.getElementById("check_inc");
+  let check_etab = document.getElementById("check_etab");
   try {
     if (check_rest.checked) {
       fetchRestaurants();
@@ -270,6 +273,14 @@ function displayItemsMap() {
   try {
     if (check_inc.checked) {
       fetchIncidents();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
+    if (check_etab.checked) {
+      fetchEtablissement();
     }
   } catch (error) {
     console.log(error);
