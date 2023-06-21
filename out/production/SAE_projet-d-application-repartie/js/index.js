@@ -1,6 +1,6 @@
 import { fetchIncidents } from "./Incidents.js";
 
-let ip = "10.11.17.202";
+let ip = "10.11.58.65";
 
 // Créer une carte avec Leaflet et la centrer sur les coordonnées spécifiées
 var map = L.map("map").setView([48.6921, 6.1844], 13);
@@ -189,7 +189,7 @@ function envoyerReservation(idRestaurant) {
   let prenom = document.getElementById("name").value;
   let nom = document.getElementById("surname").value;
   let nombrePersonnes = document.getElementById("nbper").value;
-  let idTable = document.getElementById("numtab").value;
+  let idTable = document.getElementById("numtable").value;
   let date = document.getElementById("date").value;
   let heure = document.getElementById("time").value;
   let phone = document.getElementById("phone").value;
